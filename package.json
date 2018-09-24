@@ -1,0 +1,43 @@
+{
+  "name": "Projects",
+  "version": "1.0.0",
+  "author": "Mike iLL <mike@mzoo.org>",
+  "homepage": "https://mzoo.org",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/MikeiLL/mz-project-archive"
+  },
+  "bugs": {
+    "url": "https://github.com/MikeiLL/mz-project-archive/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "scripts": {
+    "build": "gulp",
+    "jshint": "gulp jshint",
+    "jscs": "jscs gulpfile.js assets/scripts/*.js"
+  },
+  "engines": {
+    "node": ">= 4.5"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-jshint": "^2.0.1",
+    "gulp-rev": "^7.1.2",
+    "gulp-sass": "^2.0.1",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^2.0.0",
+    "jshint": "^2.9.3",
+    "gulp-concat": "^2.6.1",
+    "gulp-imagemin": "^3.3.0",
+    "gulp-sass": "^2.3.2",
+    "gulp-sourcemaps": "^1.12.0",
+    "gulp-uglify": "^2.1.2",
+    "gulp-util": "^3.0.8"
+  }
+}

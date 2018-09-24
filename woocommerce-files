@@ -1,0 +1,10 @@
+
+		require_once( 'includes/wc-template-hooks.php' );
+		require_once( 'includes/wc-template-functions.php' );
+		require_once( 'includes/wc-term-functions.php' );
+		require_once( 'includes/wc-additional-functions.php' );
+		require_once( 'includes/wc-conditional-functions.php' );
+		require_once( 'classes/class-wc-admin-meta-boxes.php' );
+		require_once( 'classes/class-wc-structured-data.php' );
+		require_once( 'classes/class-wc-breadcrumbs.php' );
+		require_once( 'classes/class-wc-post-types.php' );
