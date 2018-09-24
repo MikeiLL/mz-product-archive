@@ -8,6 +8,11 @@
  * @version     1.0.0
  */
 $args = array('taxonomy' => 'project-category',
-			  'title_li' => '');
+			  'title_li' => '',
+			  'depth' => 1);
+			  ?>
+<ul class="list-inline"> <?php
 wp_list_categories($args);
 ?>
+</ul>
+

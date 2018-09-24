@@ -449,6 +449,7 @@ final class Projects {
 		require_once( 'projects-template.php' );
 		require_once( 'projects-core-functions.php' );
 		require_once( 'projects-hooks.php' );
+		require_once( 'projects-filters.php' );
 		require_once( 'meta-boxes/project-images.php' );
 	} // End includes()
 
