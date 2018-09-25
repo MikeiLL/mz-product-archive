@@ -437,8 +437,8 @@ function projects_script() {
 
 		wp_enqueue_script( 'slick', plugins_url( '/slick/slick.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
 
-		wp_enqueue_style( 'mz-project-archive', plugins_url( '/slickswipe.css', __FILE__ ));
-	    wp_enqueue_script( 'mz-project-archive', plugins_url( '/slickswipe.js', __FILE__ ), null, PROJECTS_VERSION, true );
+		wp_enqueue_style( 'mz-project-archive', plugins_url( '/dist/css/slickswipe.css', __FILE__ ));
+	    wp_enqueue_script( 'mz-project-archive', plugins_url( '/dist/css/slickswipe.js', __FILE__ ), null, PROJECTS_VERSION, true );
 	}
 
 	if ( apply_filters( 'projects_enqueue_styles', true ) ) {
