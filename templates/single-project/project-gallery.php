@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 global $post;
 
 $attachment_ids 	= projects_get_gallery_attachment_ids();
+
 ?>
 
 
@@ -19,7 +20,7 @@ $attachment_ids 	= projects_get_gallery_attachment_ids();
 		<div id="wooswipe" class="images">
 
 			<?php
-
+			$zoomed_image_size = array(1920, 1080);
 			if ( $attachment_ids ) { ?>
 				<div class="thumbnails">
 						<ul class="thumbnail-nav">
