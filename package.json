@@ -36,5 +36,8 @@
     "gulp-concat": "^2.6.1",
     "gulp-imagemin": "^3.3.0",
     "gulp-util": "^3.0.8"
+  },
+  "dependencies": {
+    "swiper": "^4.4.1"
   }
 }
