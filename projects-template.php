@@ -350,6 +350,26 @@ if ( ! function_exists( 'projects_get_project_thumbnail' ) ) {
 	}
 }
 
+if ( ! function_exists( 'projects_get_project_thumbnail_url' ) ) {
+
+	/**
+	 * Get the project thumbnail, or the placeholder if not set.
+	 *
+	 * @access public
+	 * @subpackage	Loop
+	 * @param string $size (default: 'project-archive')
+	 * @param int $placeholder_width (default: 0)
+	 * @param int $placeholder_height (default: 0)
+	 * @return string
+	 */
+	function projects_get_project_thumbnail_url( $size = 'project-archive' ) {
+		global $post;
+
+		if ( has_post_thumbnail() )
+			return get_the_post_thumbnail_url( $post->ID, $size );
+	}
+}
+
 if ( ! function_exists( 'projects_pagination' ) ) {
 
 	/**

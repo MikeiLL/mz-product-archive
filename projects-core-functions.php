@@ -442,10 +442,12 @@ function projects_script() {
 	    
 	}
 	
+	/* Removed following to theme
 	if (is_archive('project')) {
 	    wp_enqueue_style( 'mz-project-archive-swiper', plugins_url( '/dist/css/swiper.css', __FILE__ ));
 	    wp_enqueue_script( 'mz-project-archive-swiper', plugins_url( '/dist/js/swiper.js', __FILE__ ), null, PROJECTS_VERSION, true );
 	}
+	*/
 
 	if ( apply_filters( 'projects_enqueue_styles', true ) ) {
 
