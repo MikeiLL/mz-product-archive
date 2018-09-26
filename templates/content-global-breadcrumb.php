@@ -7,7 +7,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
+if (!is_post_type_archive()):
 //source: https://gist.github.com/saqibsarwar/471cb91a6b17ffc457e2
 	global $post;
 	$home_page_id = get_option( 'projects-pages-fields' )['projects_page_id'];
@@ -41,3 +41,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 	}
 ?>
 <br style="clear: both;" />
+<?php endif; ?>
