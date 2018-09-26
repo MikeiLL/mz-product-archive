@@ -15,7 +15,7 @@
   typeof define === 'function' && define.amd ? define(factory) :
   (global.Swiper = factory());
 }(this, (function () { 'use strict';
-console.log("hello");
+
   /**
    * SSR Window 1.0.1
    * Better handling for window object in SSR environment
@@ -7978,6 +7978,7 @@ console.log("hello");
 var mySwiper = new Swiper('.swiper-container', {
 	speed: 400,
 	spaceBetween: 100,
-	init: true
+	init: true,
+	loop: true
 });
 console.log(mySwiper);
