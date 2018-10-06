@@ -429,13 +429,13 @@ function projects_script() {
 		wp_enqueue_style( 'pswp-css', plugins_url( '/pswp/photoswipe.css', __FILE__ ) );
 
 	    wp_enqueue_style( 'pswp-skin', plugins_url( '/pswp/default-skin/default-skin.css', __FILE__ )  );
-	    wp_enqueue_style( 'slick-css', plugins_url( '/slick/slick.css', __FILE__ ));
-	    wp_enqueue_style( 'slick-theme', plugins_url( '/slick/slick-theme.css', __FILE__ ));
+	    wp_enqueue_style( 'projects-slick-css', plugins_url( '/slick/slick.css', __FILE__ ));
+	    wp_enqueue_style( 'projects-slick-theme', plugins_url( '/slick/slick-theme.css', __FILE__ ));
 
-	    wp_enqueue_script( 'pswp', plugins_url( '/pswp/photoswipe.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
-	    wp_enqueue_script( 'pswp-ui', plugins_url( '/pswp/photoswipe-ui-default.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
+	    wp_enqueue_script( 'projects-pswp', plugins_url( '/pswp/photoswipe.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
+	    wp_enqueue_script( 'projects-pswp-ui', plugins_url( '/pswp/photoswipe-ui-default.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
 
-		wp_enqueue_script( 'slick', plugins_url( '/slick/slick.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
+		wp_enqueue_script( 'projects-slick', plugins_url( '/slick/slick.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
 	    	
 	    wp_enqueue_style( 'mz-project-archive', plugins_url( '/dist/css/slickswipe.css', __FILE__ ));
 	    wp_enqueue_script( 'mz-project-archive', plugins_url( '/dist/js/slickswipe.js', __FILE__ ), null, PROJECTS_VERSION, true );
