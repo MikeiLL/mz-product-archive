@@ -442,12 +442,12 @@ function projects_script() {
 	    
 	}
 	
-	/* Removed following to theme
 	if (is_archive('project')) {
-	    wp_enqueue_style( 'mz-project-archive-swiper', plugins_url( '/dist/css/swiper.css', __FILE__ ));
-	    wp_enqueue_script( 'mz-project-archive-swiper', plugins_url( '/dist/js/swiper.js', __FILE__ ), null, PROJECTS_VERSION, true );
+	    wp_enqueue_style( 'mz-project-archive', plugins_url( '/dist/css/flickity-face.css', __FILE__ ));
+	    wp_enqueue_style( 'projects-flickity', plugins_url( '/flickity/dist/flickity.min.css', __FILE__ ));
+	    wp_enqueue_script( 'projects-flickity', plugins_url( '/flickity/dist/flickity.pkgd.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
+	    wp_enqueue_script( 'mz-project-archive', plugins_url( '/dist/js/project-init.js', __FILE__ ), null, PROJECTS_VERSION, true );
 	}
-	*/
 
 	if ( apply_filters( 'projects_enqueue_styles', true ) ) {
 
