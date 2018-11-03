@@ -12,6 +12,10 @@ $contentbg: #fff;
 .projects, .project,
 .projects-page {
 
+	h1.project_title {
+		width: 100%;
+	}
+
 	// Breadcrumbs
 		 .projects-breadcrumb {
 			margin: 0 0 1em;
