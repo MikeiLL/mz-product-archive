@@ -581,15 +581,29 @@ if (!function_exists('mzoo_portfolio_intro')) {
 		);
 
 
-		// query
 		$the_query = new WP_Query( $args );
-		$result = '';
-		var_dump($the_query->query);
+		
+		$result = '<div class="container">';
+		
+		$result .= '	<div class="row portfolio__intro">';
+
 		if( $the_query->have_posts() ): 
 			while ( $the_query->have_posts() ) : $the_query->the_post(); 
-				$result .= '<h4>' . get_the_title() . '</h4>'; 
+				if(has_post_thumbnail()) {
+					$thumbnail = get_the_post_thumbnail_url(get_the_ID(), 'project-archive');
+					$background = 'background: url(' . $thumbnail . '); background-repeat: no-repeat;background-size: auto;';
+				 } else {
+				 	$background = 'background-color: #999999';
+				 }
+				$result .= '	<div class="col-md-4 col-lg-3" style="' . $background . ' width:400px; height:400px">';
+				$result .= '		<h4>' . get_the_title() . '</h4>'; 
+				$result .= '	</div>';
 			endwhile; 
 		endif; 
+		
+		$result .= '	</div>';
+		
+		$result .= '</div>';
 
 		wp_reset_query();	 // Restore global post data stomped by the_post(). 
 		
