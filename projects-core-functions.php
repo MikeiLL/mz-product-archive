@@ -442,7 +442,7 @@ function projects_script() {
 	    
 	}
 	
-	if (is_archive('project')) {
+	if (is_archive('project') || is_page('portfolio')) {
 	    wp_enqueue_style( 'mz-project-archive', plugins_url( '/dist/css/flickity.css', __FILE__ ));
 	    wp_enqueue_style( 'projects-flickity', plugins_url( '/flickity/dist/flickity.min.css', __FILE__ ));
 	    wp_enqueue_script( 'projects-flickity', plugins_url( '/flickity/dist/flickity.pkgd.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
