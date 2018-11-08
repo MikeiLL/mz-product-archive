@@ -273,8 +273,13 @@ if ( ! function_exists( 'projects_portfolio_before_loop' ) ) {
 	 * @subpackage	Archives
 	 * @return void
 	 */
-	function projects_portfolio_before_loop() {
-		echo "before loop";
+	function projects_portfolio_before_loop( $echo = true ) {
+		ob_start();
+		projects_get_template( 'loop/portfolio-start.php' );
+		if ( $echo )
+			echo ob_get_clean();
+		else
+			return ob_get_clean();
 	}
 }
 
@@ -289,8 +294,13 @@ if ( ! function_exists( 'projects_portfolio_after_loop' ) ) {
 	 * @subpackage	Archives
 	 * @return void
 	 */
-	function projects_portfolio_after_loop() {
-		echo "after loop";
+	function projects_portfolio_after_loop( $echo = true ) {
+		ob_start();
+		projects_get_template( 'loop/portfolio-end.php' );
+		if ( $echo )
+			echo ob_get_clean();
+		else
+			return ob_get_clean();
 	}
 }
 
@@ -311,7 +321,39 @@ if ( ! function_exists( 'projects_template_loop_project_thumbnail' ) ) {
 	}
 }
 
+if ( ! function_exists( 'portfolio_template_loop_project_thumbnail' ) ) {
+
+	/**
+	 * Get the project thumbnail for the loop.
+	 *
+	 * Hooked into projects_loop_item
+	 *
+	 * @access public
+	 * @subpackage	Loop
+	 * @return void
+	 */
+	function portfolio_template_loop_project_thumbnail() {
+		echo '<figure class="project-thumbnail">' . projects_get_project_thumbnail() . '</figure>';
+	}
+}
+
 if ( ! function_exists( 'projects_template_loop_project_title' ) ) {
+
+	/**
+	 * Display the portfolio item project title in the loop.
+	 *
+	 * Hooked into projects_loop_item
+	 *
+	 * @access public
+	 * @subpackage	Loop
+	 * @return void
+	 */
+	function projects_template_loop_project_title() {
+		echo '<h3>' . get_the_title() . '</h3>';
+	}
+}
+
+if ( ! function_exists( 'portfolio_template_loop_project_title' ) ) {
 
 	/**
 	 * Display the project title in the loop.
@@ -322,7 +364,7 @@ if ( ! function_exists( 'projects_template_loop_project_title' ) ) {
 	 * @subpackage	Loop
 	 * @return void
 	 */
-	function projects_template_loop_project_title() {
+	function portfolio_template_loop_project_title() {
 		echo '<h3>' . get_the_title() . '</h3>';
 	}
 }
