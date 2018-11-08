@@ -565,24 +565,35 @@ if (!function_exists('mzoo_get_the_term_children')) {
 } // if function not exists
 
 if (!function_exists('mzoo_portfolio_intro')) {
-	function mzoo_portfolio_intro($taxonomy = 'project-category') {
+	function mzoo_portfolio_intro($post_type = 'project') {
 		
-		$args = array(  'taxonomy' => $taxonomy, 
-						'meta_query' => [array(
-							'key'	  	=> 'portfolio_status',
-							'value'	  	=> '%Portfolio%',
-							'compare' 	=> 'LIKE',
-						)],
-						'hide_empty' => true );
-												
-		$query = new WP_Query( $args );
-		var_dump($query);
-		if ($query->posts == '') return false;
-		$portfolio_items = '';
-		foreach ($query->posts as $post):
-			$portfolio_items .= '<h4>' . $post->name . '</h4>';
-		endforeach;
-		return $portfolio_items;
+		$args = array(
+			'numberposts'	=> 8,
+			'post_type'		=> 'project',
+			'meta_query'	=> array(
+				'relation'		=> 'OR',
+				array(
+					'key'		=> 'portfolio_status',
+					'value'		=> 'Portfolio Item',
+					'compare'	=> 'LIKE'
+				)
+			)
+		);
+
+
+		// query
+		$the_query = new WP_Query( $args );
+		$result = '';
+		var_dump($the_query->query);
+		if( $the_query->have_posts() ): 
+			while ( $the_query->have_posts() ) : $the_query->the_post(); 
+				$result .= '<h4>' . get_the_title() . '</h4>'; 
+			endwhile; 
+		endif; 
+
+		wp_reset_query();	 // Restore global post data stomped by the_post(). 
+		
+		return $result;
 	}
 } // if function not exists
 add_shortcode('portfolio_intro', 'mzoo_portfolio_intro');
