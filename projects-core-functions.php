@@ -595,9 +595,9 @@ if (!function_exists('mzoo_portfolio_intro')) {
 				 } else {
 				 	$background = 'background-color: #999999';
 				 }
-				$result .= '	<div class="col-md-4 col-lg-3" style="' . $background . ' width:400px; height:400px">';
+				$result .= '	<a href="' . home_url('portfolio') .'" class="col-md-4 col-lg-3" style="' . $background . ' width:400px; height:400px">';
 				$result .= '		<h4>' . get_the_title() . '</h4>'; 
-				$result .= '	</div>';
+				$result .= '	</a>';
 			endwhile; 
 		endif; 
 		
