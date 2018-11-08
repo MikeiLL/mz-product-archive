@@ -36,6 +36,12 @@ class Projects_Template_Loader {
 			$find[] = $file;
 			$find[] = $this->template_url . $file;
 
+		} elseif ( is_page('portfolio') ) {
+
+			$file 	= 'page-portfolio.php';
+			$find[] = $file;
+			$find[] = $this->template_url . $file;
+
 		} elseif ( is_tax( 'project-category' ) ) {
 
 			$term = get_queried_object();
