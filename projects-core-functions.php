@@ -564,3 +564,25 @@ if (!function_exists('mzoo_get_the_term_children')) {
 	}
 } // if function not exists
 
+if (!function_exists('mzoo_portfolio_intro')) {
+	function mzoo_portfolio_intro($taxonomy = 'project-category') {
+		
+		$args = array(  'taxonomy' => $taxonomy, 
+						'meta_query' => [array(
+							'key'	  	=> 'portfolio_status',
+							'value'	  	=> '%Portfolio%',
+							'compare' 	=> 'LIKE',
+						)],
+						'hide_empty' => true );
+												
+		$query = new WP_Query( $args );
+		var_dump($query);
+		if ($query->posts == '') return false;
+		$portfolio_items = '';
+		foreach ($query->posts as $post):
+			$portfolio_items .= '<h4>' . $post->name . '</h4>';
+		endforeach;
+		return $portfolio_items;
+	}
+} // if function not exists
+add_shortcode('portfolio_intro', 'mzoo_portfolio_intro');

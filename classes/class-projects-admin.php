@@ -237,9 +237,6 @@ class Projects_Admin {
 		// Add short description meta box (replaces default excerpt)
 		add_meta_box( 'postexcerpt', sprintf( __( '%s Short Description', 'projects-by-mzoo' ), $projects->singular_name ), array( $this, 'meta_box_short_description' ), $this->post_type, 'normal' );
 
-		// Project Details Meta Box Load
-		add_meta_box( 'project-data', sprintf( __( '%s Details', 'projects-by-mzoo' ), $projects->singular_name ), array( $this, 'meta_box_content' ), $this->post_type, 'normal', 'high' );
-
 		// Project Images Meta Bog Load
 		add_meta_box( 'project-images', sprintf( __( '%s Gallery', 'projects-by-mzoo' ), $projects->singular_name ), array( $this, 'meta_box_content_project_images' ), $this->post_type, 'side' );
 
@@ -277,124 +274,11 @@ class Projects_Admin {
 	public function meta_box_content () {
 		global $post_id;
 		$fields = get_post_custom( $post_id );
-		$field_data = $this->get_custom_fields_settings();
 
 		$html = '';
 
 		$html .= '<input type="hidden" name="woo_' . $this->token . '_nonce" id="woo_' . $this->token . '_nonce" value="' . wp_create_nonce( plugin_basename( $this->dir ) ) . '" />';
 
-		if ( 0 < count( $field_data ) ) {
-			$html .= '<table class="form-table">' . "\n";
-			$html .= '<tbody>' . "\n";
-
-			foreach ( $field_data as $k => $v ) {
-				$data = isset( $v['default'] ) ? $v['default'] : '';
-				if ( isset( $fields['_' . $k] ) && isset( $fields['_' . $k][0] ) ) {
-					$data = maybe_unserialize( $fields['_' . $k][0] );
-				}
-
-				switch ( $v['type'] ) {
-					case 'hidden':
-						$field = '<input name="' . esc_attr( $k ) . '" type="hidden" id="' . esc_attr( $k ) . '" value="' . esc_attr( $data ) . '" />';
-						$html .= '<tr valign="top">' . $field . "\n";
-						$html .= '<tr/>' . "\n";
-						break;
-					case 'text':
-					case 'url':
-						$field = '<input name="' . esc_attr( $k ) . '" type="text" id="' . esc_attr( $k ) . '" class="regular-text" value="' . esc_attr( $data ) . '" />';
-						$html .= '<tr valign="top"><th scope="row"><label for="' . esc_attr( $k ) . '">' . $v['name'] . '</label></th><td>' . $field . "\n";
-						if( isset( $v['description'] ) ) $html .= '<p class="description">' . $v['description'] . '</p>' . "\n";
-						$html .= '</td><tr/>' . "\n";
-						break;
-					case 'textarea':
-						$field = '<textarea name="' . esc_attr( $k ) . '" id="' . esc_attr( $k ) . '" class="large-text">' . esc_attr( $data ) . '</textarea>';
-						$html .= '<tr valign="top"><th scope="row"><label for="' . esc_attr( $k ) . '">' . $v['name'] . '</label></th><td>' . $field . "\n";
-						if( isset( $v['description'] ) ) $html .= '<p class="description">' . $v['description'] . '</p>' . "\n";
-						$html .= '</td><tr/>' . "\n";
-						break;
-					case 'editor':
-						$editor_arguments = array( 'media_buttons' => false, 'textarea_rows' => 10 );
-						ob_start();
-						wp_editor( $data, $k, apply_filters( 'projects_editor_arguments' , $editor_arguments ) );
-						$field = ob_get_contents();
-						ob_end_clean();
-						$html .= '<tr valign="top"><th scope="row"><label for="' . esc_attr( $k ) . '">' . $v['name'] . '</label></th><td>' . $field . "\n";
-						if( isset( $v['description'] ) ) $html .= '<p class="description">' . $v['description'] . '</p>' . "\n";
-						$html .= '</td><tr/>' . "\n";
-						break;
-					case 'upload':
-						$data_atts = '';
-						if ( isset( $v['media-frame']['title'] ) ){
-							$data_atts .= sprintf( 'data-title="%s" ', esc_attr( $v['media-frame']['title'] ) );
-						}
-						if ( isset( $v['media-frame']['button'] ) ){
-							$data_atts .= sprintf( 'data-button="%s" ', esc_attr( $v['media-frame']['button'] ) );
-						}
-						if ( isset( $v['media-frame']['library'] ) ){
-							$data_atts .= sprintf( 'data-library="%s" ', esc_attr( $v['media-frame']['library'] ) );
-						}
-
-						$field = '<input name="' . esc_attr( $k ) . '" type="text" id="' . esc_attr( $k ) . '" class="regular-text projects-upload-field" value="' . esc_attr( $data ) . '" />';
-						$field .= '<button id="' . esc_attr( $k ) . '" class="projects-upload button"' . $data_atts . '>' . $v['label'] . '</button>';
-						$html .= '<tr valign="top"><th scope="row"><label for="' . esc_attr( $k ) . '">' . $v['name'] . '</label></th><td>' . $field . "\n";
-						if( isset( $v['description'] ) ) $html .= '<p class="description">' . $v['description'] . '</p>' . "\n";
-						$html .= '</td><tr/>' . "\n";
-						break;
-					case 'radio':
-						$field = '';
-						if ( isset( $v['options'] ) && is_array( $v['options'] ) ) {
-							foreach ( $v['options'] as $val => $option ){
-								$field .= '<p><label for="' . esc_attr( $v['name'] . '-' . $val ) . '"><input id="' . esc_attr( $v['name'] . '-' . $val ) . '" type="radio" name="' . esc_attr( $k ) . '" value="' . esc_attr( $val ) . '" ' . checked( $val, $data, false ) . ' / >'. $option . '</label></p>' . "\n";
-							}
-						}
-						$html .= '<tr valign="top"><th scope="row"><label>' . $v['name'] . '</label></th><td>' . $field . "\n";
-						if( isset( $v['description'] ) ) $html .= '<p class="description">' . $v['description'] . '</p>' . "\n";
-						$html .= '</td><tr/>' . "\n";
-						break;
-					case 'checkbox':
-						$field = '<p><input id="' . esc_attr( $v['name'] ) . '" type="checkbox" name="' . esc_attr( $k ) . '" value="1" ' . checked( 'yes', $data, false ) . ' / ></p>' . "\n";
-						if( isset( $v['description'] ) ) $field .= '<p class="description">' . $v['description'] . '</p>' . "\n";
-						$html .= '<tr valign="top"><th scope="row"><label for="' . esc_attr( $v['name'] ) . '">' . $v['name'] . '</label></th><td>' . $field . "\n";
-						$html .= '</td><tr/>' . "\n";
-						break;
-					case 'multicheck':
-						$field = '';
-						if( isset( $v['options'] ) && is_array( $v['options'] ) ){
-							foreach ( $v['options'] as $val => $option ){
-								$field .= '<p><label for="' . esc_attr( $v['name'] . '-' . $val ) . '"><input id="' . esc_attr( $v['name'] . '-' . $val ) . '" type="checkbox" name="' . esc_attr( $k ) . '[]" value="' . esc_attr( $val ) . '" ' . checked( 1, in_array( $val, (array) $data ), false ) . ' / >'. $option . '</label></p>' . "\n";
-							}
-						}
-						$html .= '<tr valign="top"><th scope="row"><label>' . $v['name'] . '</label></th><td>' . $field . "\n";
-						if( isset( $v['description'] ) ) $html .= '<p class="description">' . $v['description'] . '</p>' . "\n";
-						$html .= '</td><tr/>' . "\n";
-						break;
-					case 'select':
-						$field = '<select name="' . esc_attr( $k ) . '" id="' . esc_attr( $k ) . '" >'. "\n";
-						if ( isset( $v['options'] ) && is_array( $v['options'] ) ) {
-							foreach ( $v['options'] as $val => $option ){
-								$field .= '<option value="' . esc_attr( $val ) . '" ' . selected( $val, $data, false ) . '>'. $option .'</option>' . "\n";
-							}
-						}
-						$field .= '</select>'. "\n";
-						$html .= '<tr valign="top"><th scope="row"><label for="' . esc_attr( $k ) . '">' . $v['name'] . '</label></th><td>' . $field . "\n";
-						if( isset( $v['description'] ) ) $html .= '<p class="description">' . $v['description'] . '</p>' . "\n";
-						$html .= '</td><tr/>' . "\n";
-						break;
-					default:
-						$field = apply_filters( 'projects_data_field_type_' . $v['type'], null, $k, $data, $v );
-						if ( $field ) {
-							$html .= '<tr valign="top"><th scope="row"><label for="' . esc_attr( $k ) . '">' . $v['name'] . '</label></th><td>' . $field . "\n";
-							if( isset( $v['description'] ) ) $html .= '<p class="description">' . $v['description'] . '</p>' . "\n";
-							$html .= '</td><tr/>' . "\n";
-						}
-						break;
-				}
-
-			}
-
-			$html .= '</tbody>' . "\n";
-			$html .= '</table>' . "\n";
-		}
 
 		echo $html;
 	} // End meta_box_content()
@@ -468,44 +352,6 @@ class Projects_Admin {
 			if ( ! current_user_can( 'edit_post', $post_id ) ) {
 				return $post_id;
 			}
-		}
-
-		$field_data 	= $this->get_custom_fields_settings();
-		$fields 		= array_keys( $field_data );
-
-		foreach ( $fields as $f ) {
-
-			switch ( $field_data[$f]['type'] ) {
-				case 'url':
-					${$f} = isset( $_POST[$f] ) ? esc_url( $_POST[$f] ) : '';
-					break;
-				case 'textarea':
-				case 'editor':
-					${$f} = isset( $_POST[$f] ) ? wp_kses_post( trim( $_POST[$f] ) ) : '';
-					break;
-				case 'checkbox':
-					${$f} = isset( $_POST[$f] ) ? 'yes' : 'no';
-					break;
-				case 'multicheck':
-					// ensure checkbox is array and whitelist accepted values against options
-					${$f} = isset( $_POST[$f] ) && is_array( $field_data[$f]['options'] ) ? (array) array_intersect( (array) $_POST[$f], array_flip( $field_data[$f]['options'] ) ) : '';
-					break;
-				case 'radio':
-				case 'select':
-					// whitelist accepted value against options
-					$values = array();
-					if ( is_array( $field_data[$f]['options'] ) )
-					    $values = array_keys( $field_data[$f]['options'] );
-					${$f} = isset( $_POST[$f] ) && in_array( $_POST[$f], $values ) ? $_POST[$f] : '';
-					break;
-				default :
-					${$f} = isset( $_POST[$f] ) ? strip_tags( trim( $_POST[$f] ) ) : '';
-					break;
-			}
-
-			// save it
-			update_post_meta( $post_id, '_' . $f, ${$f} );
-
 		}
 
 		// Save the project gallery image IDs.
