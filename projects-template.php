@@ -262,6 +262,39 @@ if ( ! function_exists( 'projects_project_archive_description' ) ) {
 	}
 }
 
+if ( ! function_exists( 'projects_portfolio_before_loop' ) ) {
+
+	/**
+	 * Show a projects portfolio page before loop
+	 *
+	 * Hooked into portfolio_before_loop
+	 *
+	 * @access public
+	 * @subpackage	Archives
+	 * @return void
+	 */
+	function projects_portfolio_before_loop() {
+		echo "before loop";
+	}
+}
+
+if ( ! function_exists( 'projects_portfolio_after_loop' ) ) {
+
+	/**
+	 * Show a projects portfolio page after loop
+	 *
+	 * Hooked into portfolio_after_loop
+	 *
+	 * @access public
+	 * @subpackage	Archives
+	 * @return void
+	 */
+	function projects_portfolio_after_loop() {
+		echo "after loop";
+	}
+}
+
+
 if ( ! function_exists( 'projects_template_loop_project_thumbnail' ) ) {
 
 	/**

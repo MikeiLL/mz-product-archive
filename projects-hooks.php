@@ -58,6 +58,14 @@ if ( ! is_admin() || defined('DOING_AJAX') ) {
 	add_action( 'projects_loop_item', 'projects_template_loop_project_title', 20 );
 	add_action( 'projects_after_loop_item', 'projects_template_short_description', 10 );
 	
+	/**
+	 * Portfolio Loop Items
+	 *
+	 * @see 
+	 */
+	add_action( 'portfolio_before_loop', 'projects_portfolio_before_loop', 10 );
+	add_action( 'portfolio_after_loop', 'projects_portfolio_after_loop', 20 );
+	
 
 	/**
 	 * Before Single Product
