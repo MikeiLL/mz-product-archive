@@ -590,12 +590,12 @@ if (!function_exists('mzoo_portfolio_intro')) {
 			while ( $the_query->have_posts() ) : $the_query->the_post(); 
 				if(has_post_thumbnail()) {
 					$thumbnail = get_the_post_thumbnail_url(get_the_ID(), 'project-archive');
-					$background = 'background: url(' . $thumbnail . '); background-repeat: no-repeat;background-size: auto;';
+					$background = 'background: url(' . $thumbnail . '); ';
 				 } else {
 				 	$background = 'background-color: #999999';
 				 }
-				$result .= '	<a href="' . home_url('portfolio') .'" class="col-md-4 col-lg-3" style="' . $background . ' width:400px; height:400px">';
-				$result .= '		<h4>' . get_the_title() . '</h4>'; 
+				$result .= '	<a class="portfolio__hp-thumb col-6 col-md-3" href="' . home_url('portfolio') .'" style="' . $background . ' ">';
+				$result .= '		<div class="portfolio__hp-content"><h4 class="portfolio__thumb-title">' . get_the_title() . '</h4></div>'; 
 				$result .= '	</a>';
 			endwhile; 
 		endif; 
