@@ -262,7 +262,7 @@ if ( ! function_exists( 'projects_project_archive_description' ) ) {
 	}
 }
 
-if ( ! function_exists( 'projects_portfolio_before_loop' ) ) {
+if ( ! function_exists( 'projects_portfolio_loop_start' ) ) {
 
 	/**
 	 * Show a projects portfolio page before loop
@@ -273,7 +273,7 @@ if ( ! function_exists( 'projects_portfolio_before_loop' ) ) {
 	 * @subpackage	Archives
 	 * @return void
 	 */
-	function projects_portfolio_before_loop( $echo = true ) {
+	function projects_portfolio_loop_start( $echo = true ) {
 		ob_start();
 		projects_get_template( 'loop/portfolio-start.php' );
 		if ( $echo )
@@ -283,7 +283,7 @@ if ( ! function_exists( 'projects_portfolio_before_loop' ) ) {
 	}
 }
 
-if ( ! function_exists( 'projects_portfolio_after_loop' ) ) {
+if ( ! function_exists( 'projects_portfolio_loop_end' ) ) {
 
 	/**
 	 * Show a projects portfolio page after loop
@@ -294,7 +294,7 @@ if ( ! function_exists( 'projects_portfolio_after_loop' ) ) {
 	 * @subpackage	Archives
 	 * @return void
 	 */
-	function projects_portfolio_after_loop( $echo = true ) {
+	function projects_portfolio_loop_end( $echo = true ) {
 		ob_start();
 		projects_get_template( 'loop/portfolio-end.php' );
 		if ( $echo )

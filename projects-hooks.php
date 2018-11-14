@@ -63,10 +63,8 @@ if ( ! is_admin() || defined('DOING_AJAX') ) {
 	 *
 	 * @see 
 	 */
-	add_action( 'portfolio_before_loop', 'projects_portfolio_before_loop', 10 );
 	add_action( 'portfolio_loop_item', 'portfolio_template_loop_project_thumbnail', 10 );
 	add_action( 'portfolio_loop_item', 'projects_template_loop_project_title', 20 );
-	add_action( 'portfolio_after_loop', 'projects_portfolio_after_loop', 20 );
 	
 
 	/**

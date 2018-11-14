@@ -22,5 +22,13 @@
     }
 
   });
+  
+  $('.portfolio-gallery').flickity({
+    imagesLoaded: true,
+    percentPosition: false,
+    wrapAround: true,
+    pageDots: true
+  });
+
 
 })(jQuery); // Fully reference jQuery after this point.

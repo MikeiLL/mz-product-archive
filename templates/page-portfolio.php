@@ -63,7 +63,7 @@ get_header( 'projects' ); ?>
 
 			<div class="projects columns-<?php echo $projects_loop['columns']; ?>">
 
-			<?php projects_project_loop_start(); ?>
+			<?php projects_portfolio_loop_start(); ?>
 
 				<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
 
@@ -71,7 +71,7 @@ get_header( 'projects' ); ?>
 
 				<?php endwhile; // end of the loop. ?>
 
-			<?php projects_project_loop_end(); ?>
+			<?php projects_portfolio_loop_end(); ?>
 
 			</div><!-- .projects -->
 
