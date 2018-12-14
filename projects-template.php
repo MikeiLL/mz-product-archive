@@ -349,7 +349,7 @@ if ( ! function_exists( 'projects_template_loop_project_title' ) ) {
 	 * @return void
 	 */
 	function projects_template_loop_project_title() {
-		echo '<h3>' . get_the_title() . '</h3>';
+		echo '<h3><a href="' . get_permalink() . '" title="' . get_the_title() . '"> ' . get_the_title() . '</a></h3>';
 	}
 }
 

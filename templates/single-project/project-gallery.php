@@ -15,11 +15,10 @@ $attachment_ids 	= projects_get_gallery_attachment_ids();
 
 ?>
 
-
-
 		<div id="wooswipe" class="images">
 
 			<?php
+			var_dump( get_intermediate_image_sizes() );
 			$zoomed_image_size = array(1920, 1080);
 			if ( $attachment_ids ) { ?>
 				<div class="thumbnails">
@@ -27,9 +26,9 @@ $attachment_ids 	= projects_get_gallery_attachment_ids();
 							<?php
 								function addImageThumbnail($attachment_id, $zoomed_image_size){
 									global $post;
-									$image       	= wp_get_attachment_image( $attachment_id, 'shop_thumbnail' );
+									$image       	= wp_get_attachment_image( $attachment_id, 'project-thumbnail' );
 									$hq       		= wp_get_attachment_image_src( $attachment_id, apply_filters( 'wooswipe_zoomed_image_size', $zoomed_image_size ) );
-									$med       		= wp_get_attachment_image_src( $attachment_id, 'shop_single' );
+									$med       		= wp_get_attachment_image_src( $attachment_id, 'project-thumbnail' );
 
 									echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', sprintf( '
 										<li>
