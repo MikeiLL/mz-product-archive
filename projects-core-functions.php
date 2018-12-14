@@ -420,7 +420,24 @@ function projects_script() {
 	wp_register_style( 'projects-styles', plugins_url( '/dist/css/woo-projects.css', __FILE__ ), array(), PROJECTS_VERSION );
 	wp_register_style( 'projects-handheld', plugins_url( '/dist/css/woo-projects-handheld.css', __FILE__ ), array(), PROJECTS_VERSION );
 	
-	if ( is_project() || is_archive('project') || is_page('portfolio')) {
+	if ( is_project() ) {
+		wp_enqueue_style( 'pswp-css', plugins_url( '/pswp/photoswipe.css', __FILE__ ) );
+	    wp_enqueue_style( 'pswp-skin', plugins_url( '/pswp/default-skin/default-skin.css', __FILE__ )  );
+	    
+	    wp_enqueue_style( 'slick-css', plugins_url( '/slick/slick.css', __FILE__ ));
+	    wp_enqueue_style( 'slick-theme', plugins_url( '/slick/slick-theme.css', __FILE__ ));
+
+		wp_enqueue_script( 'slick', plugins_url( '/slick/slick.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
+	    	
+	    wp_enqueue_style( 'mz-project-archive', plugins_url( '/dist/css/slickswipe.css', __FILE__ ));
+	    wp_enqueue_script( 'mz-project-archive', plugins_url( '/dist/js/slickswipe.js', __FILE__ ), null, PROJECTS_VERSION, true );
+	    
+	    wp_enqueue_script( 'pswp', plugins_url( '/pswp/photoswipe.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
+	    wp_enqueue_script( 'pswp-ui', plugins_url( '/pswp/photoswipe-ui-default.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
+	    
+	}
+	
+	if ( is_archive('project') || is_page('portfolio')) {
 		wp_enqueue_style( 'pswp-css', plugins_url( '/pswp/photoswipe.css', __FILE__ ) );
 	    wp_enqueue_style( 'pswp-skin', plugins_url( '/pswp/default-skin/default-skin.css', __FILE__ )  );
 	    
