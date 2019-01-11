@@ -6,6 +6,12 @@ $secondary: #999;
 $secondarytext: #999;
 $contentbg: #fff;
 
+.project-archive .gallery-cell img {
+	cursor: -moz-zoom-in; 
+    cursor: -webkit-zoom-in;
+    cursor: zoom-in;
+}
+
 /**
  * Layout Styles
  */
