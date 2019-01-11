@@ -1,4 +1,5 @@
  (function($) {
+ 
   // Flickity
   // --------- /
   var $gallery = $('.gallery').flickity({
@@ -15,41 +16,31 @@
     pageDots: false,
     prevNextButtons: false
   });
-
-  $gallery.on('staticClick.flickity', function(event, pointer, cellElement, cellIndex) {
-    if (!cellElement) {
-      return;
-    }
-
-  });
   
-    $gallery.on('staticClick.flickity', function(event, pointer, cellElement, cellIndex) {
-    if (!cellElement) {
-      return;
-    }
+  $gallery.on('click', 'img', function(e) {
+     var index = $(e.target).parent().index();
 
     // Photoswipe functions
     var openPhotoSwipe = function() {
       var pswpElement = document.querySelectorAll('.pswp')[0];
 
       // build items array
-
+      
       var items = $.map($(".gallery").find("img"), function(el) {
-        return {
+        return {          
           "src": el.getAttribute('data-src'),
-          "w":   el.getAttribute('data-width'),
-          "h":   el.getAttribute('data-height')
+          "w":   el.width,
+          "h":   el.height
         }
       });
-
-      var options = {
+      
+      var options = {  
       	history: false,
-        index: cellIndex
+        index: index
       };
-
+   
       var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
       gallery.init();
-
     };
 
     openPhotoSwipe();
