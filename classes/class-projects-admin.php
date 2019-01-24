@@ -237,9 +237,6 @@ class Projects_Admin {
 		// Add short description meta box (replaces default excerpt)
 		add_meta_box( 'postexcerpt', sprintf( __( '%s Short Description', 'projects-by-mzoo' ), $projects->singular_name ), array( $this, 'meta_box_short_description' ), $this->post_type, 'normal' );
 
-		// Project Details Meta Box Load
-		add_meta_box( 'project-data', sprintf( __( '%s Details', 'projects-by-mzoo' ), $projects->singular_name ), array( $this, 'meta_box_content' ), $this->post_type, 'normal', 'high' );
-
 		// Project Images Meta Bog Load
 		add_meta_box( 'project-images', sprintf( __( '%s Gallery', 'projects-by-mzoo' ), $projects->singular_name ), array( $this, 'meta_box_content_project_images' ), $this->post_type, 'side' );
 

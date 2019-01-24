@@ -104,45 +104,4 @@ jQuery(document).ready(function($){
 	// Instantiates the variable that holds the media library frame.
 	var projects_data_frame;
 
-	// Runs when the image button is clicked.
-	jQuery( '#project-data' ).on( 'click', '.projects-upload', function( event ) {
-
-		// Prevents the default action from occuring.
-		event.preventDefault();
-
-		// store button object
-		$button = $(this);
-
-		// If the frame already exists, re-open it.
-		if ( projects_data_frame ) {
-			projects_data_frame.open();
-			return;
-		}
-
-		title = $button.data( 'title' ) ? $button.data( 'title' ) : woo_projects_admin.default_title;
-		button = $button.data( 'button' ) ? $button.data( 'button' ) : woo_projects_admin.default_button;
-		library = $button.data( 'library' ) ? $button.data( 'library' ) : '';
-
-		// Sets up the media library frame
-		projects_data_frame = wp.media.frames.projects_data_frame = wp.media({
-			title: title,
-			button: { text: button },
-			library: { type: library }
-		});
-
-		// Runs when an image is selected.
-		projects_data_frame.on( 'select', function(){
-
-			// Grabs the attachment selection and creates a JSON representation of the model.
-			var media_attachment = projects_data_frame.state().get( 'selection' ).first().toJSON();
-
-			// Sends the attachment URL to our custom image input field.
-			$button.prev( 'input.projects-upload-field' ).val( media_attachment.url );
-
-		});
-
-		// Opens the media library frame.
-		projects_data_frame.open();
-	});
-
 });
