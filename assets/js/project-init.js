@@ -53,10 +53,8 @@
     pageDots: true
   });
   
-  $portfolio_gallery.on('staticClick.flickity', function(event, pointer, cellElement, cellIndex) {
-    if (!cellElement) {
-      return;
-    }
+  $portfolio_gallery.on('click', 'img', function(e) {
+    var index = $(e.target).parent().index();
 
     // Photoswipe functions
     var openPhotoSwipe = function() {
@@ -74,7 +72,7 @@
 
       var options = {
       	history: false,
-        index: cellIndex
+        index: index
       };
 
       var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
