@@ -12,6 +12,12 @@ $contentbg: #fff;
     cursor: zoom-in;
 }
 
+.portfolio-gallery .gallery-cell img {
+    cursor: -moz-zoom-in;
+    cursor: -webkit-zoom-in;
+    cursor: zoom-in;
+}
+
 /**
  * Layout Styles
  */
