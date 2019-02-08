@@ -419,7 +419,7 @@ function projects_script() {
 	// Register projects CSS 
 	wp_register_style( 'projects-styles', plugins_url( '/dist/css/woo-projects.css', __FILE__ ), array(), PROJECTS_VERSION );
 	wp_register_style( 'projects-handheld', plugins_url( '/dist/css/woo-projects-handheld.css', __FILE__ ), array(), PROJECTS_VERSION );
-	
+	  
 	if ( is_project() ) {
 		wp_enqueue_style( 'pswp-css', plugins_url( '/pswp/photoswipe.css', __FILE__ ) );
 	    wp_enqueue_style( 'pswp-skin', plugins_url( '/pswp/default-skin/default-skin.css', __FILE__ )  );
@@ -447,6 +447,13 @@ function projects_script() {
 	    wp_enqueue_script( 'mz-project-archive-init', plugins_url( '/dist/js/project-init.js', __FILE__ ), ['jquery'], PROJECTS_VERSION, true );
 	    wp_enqueue_script( 'pswp', plugins_url( '/pswp/photoswipe.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
 	    wp_enqueue_script( 'pswp-ui', plugins_url( '/pswp/photoswipe-ui-default.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
+	    
+	    // Send _GET variable to script so we start on correct slide if present.
+	    $page = isset($_GET['portfolio_item']) ? $_GET['portfolio_item'] : 0;
+		$data = array(
+			'page' => $page
+		);
+		wp_localize_script( 'mz-project-archive-init', 'mz_project_archive', $data );
 	}
 
 	if ( apply_filters( 'projects_enqueue_styles', true ) ) {
@@ -580,8 +587,11 @@ if (!function_exists('mzoo_portfolio_intro')) {
 			)
 		);
 
-
+		
 		$the_query = new WP_Query( $args );
+		
+		// Count posts to send post index to the Portfolio page
+		$count = 0;
 		
 		$result = '<div class="container">';
 		
@@ -595,9 +605,14 @@ if (!function_exists('mzoo_portfolio_intro')) {
 				 } else {
 				 	$background = 'background-color: #999999';
 				 }
-				$result .= '	<a class="portfolio__hp-thumb col-6 col-md-3" href="' . home_url('portfolio') .'" style="' . $background . ' ">';
-				$result .= '		<div class="portfolio__hp-content"><h4 class="portfolio__thumb-title">' . get_the_title() . '</h4></div>'; 
+
+				$result .= '	<a class="portfolio__hp-thumb col-6 col-md-3" href="' . home_url('portfolio') . add_query_arg('portfolio_item', $count, get_post_type_archive_link( "portfolio" )) .'" style="' . $background . ' ">';
+				$result .= '		<div class="portfolio__hp-content">'; 
+				$result .= '			<h4 class="portfolio__thumb-title">' . get_the_title() . '</h4>';
+				$result .= '			<h5><strong>' . get_the_terms(get_the_ID(), 'project-category')[0]->name . '</strong></h5>';
+				$result .= '		</div>';
 				$result .= '	</a>';
+				$count++;
 			endwhile; 
 		endif; 
 		

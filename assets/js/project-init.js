@@ -50,9 +50,10 @@
     imagesLoaded: true,
     percentPosition: false,
     wrapAround: true,
-    pageDots: true
+    pageDots: true,
+    initialIndex: mz_project_archive.page
   });
-  
+
   $portfolio_gallery.on('click', 'img', function(e) {
     var index = $(e.target).parent().index();
 
