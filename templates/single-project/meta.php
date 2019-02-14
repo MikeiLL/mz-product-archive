@@ -17,10 +17,6 @@ global $post;
 		// Categories
 		$terms_as_text 	= get_the_term_list( $post->ID, 'project-category', '<li>', '</li><li>', '</li>' );
 
-		// Meta
-		$client 		= esc_attr( get_post_meta( $post->ID, '_client', true ) );
-		$url 			= esc_url( get_post_meta( $post->ID, '_url', true ) );
-
 		do_action( 'projects_before_meta' );
 
 		/**
