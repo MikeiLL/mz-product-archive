@@ -1,5 +1,4 @@
  (function($) {
- 
   // Flickity
   // --------- /
   var $gallery = $('.gallery').flickity({
@@ -16,8 +15,16 @@
     pageDots: false,
     prevNextButtons: false
   });
+
+  $gallery.on('staticClick.flickity', function(event, pointer, cellElement, cellIndex) {
+    if (!cellElement) {
+      return;
+    }
+
+  });
   
-  $gallery.on('click', 'img', function(e) {
+    $gallery.on('click', 'img', function(e) {
+    // If we need more complex HTML in this slider, use $.parents('.is-selected') as below in portfolio
      var index = $(e.target).parent().index();
 
     // Photoswipe functions
@@ -29,8 +36,8 @@
       var items = $.map($(".gallery").find("img"), function(el) {
         return {          
           "src": el.getAttribute('data-src'),
-          "w":   el.width,
-          "h":   el.height
+          "w":   el.getAttribute('data-width'),
+          "h":   el.getAttribute('data-height')
         }
       });
       
@@ -38,9 +45,11 @@
       	history: false,
         index: index
       };
-   
+      console.log($(e.target).parent());
+
       var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
       gallery.init();
+
     };
 
     openPhotoSwipe();
@@ -55,7 +64,7 @@
   });
 
   $portfolio_gallery.on('click', 'img', function(e) {
-    var index = $(e.target).parent().index();
+    var index = $(e.target).parents('.is-selected').index();
 
     // Photoswipe functions
     var openPhotoSwipe = function() {
@@ -75,6 +84,7 @@
       	history: false,
         index: index
       };
+      console.log($(e.target).parents('.is-selected'));
 
       var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
       gallery.init();
