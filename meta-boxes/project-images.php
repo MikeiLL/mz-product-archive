@@ -1,8 +1,8 @@
 <?php
 /**
- * Product Images
+ * project Images
  *
- * Display the product images meta box.
+ * Display the project images meta box.
  *
  * @author      WooThemes
  * @category    Admin
@@ -15,9 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * WC_Meta_Box_Product_Images Class.
+ * WC_Meta_Box_project_Images Class.
  */
-class MZ_Meta_Box_Product_Images {
+class MZ_Meta_Box_project_Images {
 
 	/**
 	 * Output the metabox.
@@ -26,19 +26,19 @@ class MZ_Meta_Box_Product_Images {
 	 */
 	public static function output( $post ) {
 		?>
-		<div id="product_images_container">
-			<ul class="product_images">
+		<div id="project_images_container">
+			<ul class="project_images">
 				<?php
-					if ( metadata_exists( 'post', $post->ID, '_product_image_gallery' ) ) {
-						$product_image_gallery = get_post_meta( $post->ID, '_product_image_gallery', true );
+					if ( metadata_exists( 'post', $post->ID, '_project_image_gallery' ) ) {
+						$project_image_gallery = get_post_meta( $post->ID, '_project_image_gallery', true );
 					} else {
 						// Backwards compat
 						$attachment_ids = get_posts( 'post_parent=' . $post->ID . '&numberposts=-1&post_type=attachment&orderby=menu_order&order=ASC&post_mime_type=image&fields=ids&meta_key=_woocommerce_exclude_image&meta_value=0' );
 						$attachment_ids = array_diff( $attachment_ids, array( get_post_thumbnail_id() ) );
-						$product_image_gallery = implode( ',', $attachment_ids );
+						$project_image_gallery = implode( ',', $attachment_ids );
 					}
 
-					$attachments         = array_filter( explode( ',', $product_image_gallery ) );
+					$attachments         = array_filter( explode( ',', $project_image_gallery ) );
 					$update_meta         = false;
 					$updated_gallery_ids = array();
 
@@ -63,19 +63,19 @@ class MZ_Meta_Box_Product_Images {
 							$updated_gallery_ids[] = $attachment_id;
 						}
 
-						// need to update product meta to set new gallery ids
+						// need to update project meta to set new gallery ids
 						if ( $update_meta ) {
-							update_post_meta( $post->ID, '_product_image_gallery', implode( ',', $updated_gallery_ids ) );
+							update_post_meta( $post->ID, '_project_image_gallery', implode( ',', $updated_gallery_ids ) );
 						}
 					}
 				?>
 			</ul>
 
-			<input type="hidden" id="product_image_gallery" name="product_image_gallery" value="<?php echo esc_attr( $product_image_gallery ); ?>" />
+			<input type="hidden" id="project_image_gallery" name="project_image_gallery" value="<?php echo esc_attr( $project_image_gallery ); ?>" />
 
 		</div>
-		<p class="add_product_images hide-if-no-js">
-			<a href="#" data-choose="<?php esc_attr_e( 'Add images to product gallery', 'woocommerce' ); ?>" data-update="<?php esc_attr_e( 'Add to gallery', 'woocommerce' ); ?>" data-delete="<?php esc_attr_e( 'Delete image', 'woocommerce' ); ?>" data-text="<?php esc_attr_e( 'Delete', 'woocommerce' ); ?>"><?php _e( 'Add product gallery images', 'woocommerce' ); ?></a>
+		<p class="add_project_images hide-if-no-js">
+			<a href="#" data-choose="<?php esc_attr_e( 'Add images to project gallery', 'woocommerce' ); ?>" data-update="<?php esc_attr_e( 'Add to gallery', 'woocommerce' ); ?>" data-delete="<?php esc_attr_e( 'Delete image', 'woocommerce' ); ?>" data-text="<?php esc_attr_e( 'Delete', 'woocommerce' ); ?>"><?php _e( 'Add project gallery images', 'woocommerce' ); ?></a>
 		</p>
 		<?php
 	}
@@ -87,8 +87,8 @@ class MZ_Meta_Box_Product_Images {
 	 * @param WP_Post $post
 	 */
 	public static function save( $post_id, $post ) {
-		$attachment_ids = isset( $_POST['product_image_gallery'] ) ? array_filter( explode( ',', wc_clean( $_POST['product_image_gallery'] ) ) ) : array();
+		$attachment_ids = isset( $_POST['project_image_gallery'] ) ? array_filter( explode( ',', wc_clean( $_POST['project_image_gallery'] ) ) ) : array();
 
-		update_post_meta( $post_id, '_product_image_gallery', implode( ',', $attachment_ids ) );
+		update_post_meta( $post_id, '_project_image_gallery', implode( ',', $attachment_ids ) );
 	}
 }

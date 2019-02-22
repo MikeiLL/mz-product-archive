@@ -262,6 +262,49 @@ if ( ! function_exists( 'projects_project_archive_description' ) ) {
 	}
 }
 
+if ( ! function_exists( 'projects_portfolio_loop_start' ) ) {
+
+	/**
+	 * Show a projects portfolio page before loop
+	 *
+	 * Hooked into portfolio_before_loop
+	 *
+	 * @access public
+	 * @subpackage	Archives
+	 * @return void
+	 */
+	function projects_portfolio_loop_start( $echo = true ) {
+		ob_start();
+		projects_get_template( 'loop/portfolio-start.php' );
+		if ( $echo )
+			echo ob_get_clean();
+		else
+			return ob_get_clean();
+	}
+}
+
+if ( ! function_exists( 'projects_portfolio_loop_end' ) ) {
+
+	/**
+	 * Show a projects portfolio page after loop
+	 *
+	 * Hooked into portfolio_after_loop
+	 *
+	 * @access public
+	 * @subpackage	Archives
+	 * @return void
+	 */
+	function projects_portfolio_loop_end( $echo = true ) {
+		ob_start();
+		projects_get_template( 'loop/portfolio-end.php' );
+		if ( $echo )
+			echo ob_get_clean();
+		else
+			return ob_get_clean();
+	}
+}
+
+
 if ( ! function_exists( 'projects_template_loop_project_thumbnail' ) ) {
 
 	/**
@@ -278,7 +321,39 @@ if ( ! function_exists( 'projects_template_loop_project_thumbnail' ) ) {
 	}
 }
 
+if ( ! function_exists( 'portfolio_template_loop_project_thumbnail' ) ) {
+
+	/**
+	 * Get the project thumbnail for the loop.
+	 *
+	 * Hooked into projects_loop_item
+	 *
+	 * @access public
+	 * @subpackage	Loop
+	 * @return void
+	 */
+	function portfolio_template_loop_project_thumbnail() {
+		echo '<figure class="project-thumbnail">' . projects_get_project_thumbnail() . '</figure>';
+	}
+}
+
 if ( ! function_exists( 'projects_template_loop_project_title' ) ) {
+
+	/**
+	 * Display the portfolio item project title in the loop.
+	 *
+	 * Hooked into projects_loop_item
+	 *
+	 * @access public
+	 * @subpackage	Loop
+	 * @return void
+	 */
+	function projects_template_loop_project_title() {
+		echo '<h3><a href="' . get_permalink() . '" title="' . get_the_title() . '"> ' . get_the_title() . '</a></h3>';
+	}
+}
+
+if ( ! function_exists( 'portfolio_template_loop_project_title' ) ) {
 
 	/**
 	 * Display the project title in the loop.
@@ -289,7 +364,7 @@ if ( ! function_exists( 'projects_template_loop_project_title' ) ) {
 	 * @subpackage	Loop
 	 * @return void
 	 */
-	function projects_template_loop_project_title() {
+	function portfolio_template_loop_project_title() {
 		echo '<h3>' . get_the_title() . '</h3>';
 	}
 }

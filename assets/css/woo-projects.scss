@@ -6,11 +6,27 @@ $secondary: #999;
 $secondarytext: #999;
 $contentbg: #fff;
 
+.project-archive .gallery-cell img {
+	cursor: -moz-zoom-in; 
+    cursor: -webkit-zoom-in;
+    cursor: zoom-in;
+}
+
+.portfolio-gallery .gallery-cell img {
+    cursor: -moz-zoom-in;
+    cursor: -webkit-zoom-in;
+    cursor: zoom-in;
+}
+
 /**
  * Layout Styles
  */
 .projects, .project,
 .projects-page {
+
+	h1.project_title {
+		width: 100%;
+	}
 
 	// Breadcrumbs
 		 .projects-breadcrumb {

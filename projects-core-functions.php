@@ -419,35 +419,42 @@ function projects_script() {
 	// Register projects CSS 
 	wp_register_style( 'projects-styles', plugins_url( '/dist/css/woo-projects.css', __FILE__ ), array(), PROJECTS_VERSION );
 	wp_register_style( 'projects-handheld', plugins_url( '/dist/css/woo-projects-handheld.css', __FILE__ ), array(), PROJECTS_VERSION );
-	
-	/*
-	 * This is basically copied from WooSwipe with alteration to load 
-	 * if page is a Project page
-	 *
-	 */
+	  
 	if ( is_project() ) {
 		wp_enqueue_style( 'pswp-css', plugins_url( '/pswp/photoswipe.css', __FILE__ ) );
-
 	    wp_enqueue_style( 'pswp-skin', plugins_url( '/pswp/default-skin/default-skin.css', __FILE__ )  );
-	    wp_enqueue_style( 'projects-slick-css', plugins_url( '/slick/slick.css', __FILE__ ));
-	    wp_enqueue_style( 'projects-slick-theme', plugins_url( '/slick/slick-theme.css', __FILE__ ));
+	    
+	    wp_enqueue_style( 'slick-css', plugins_url( '/slick/slick.css', __FILE__ ));
+	    wp_enqueue_style( 'slick-theme', plugins_url( '/slick/slick-theme.css', __FILE__ ));
 
-	    wp_enqueue_script( 'projects-pswp', plugins_url( '/pswp/photoswipe.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
-	    wp_enqueue_script( 'projects-pswp-ui', plugins_url( '/pswp/photoswipe-ui-default.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
-
-		wp_enqueue_script( 'projects-slick', plugins_url( '/slick/slick.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
+		wp_enqueue_script( 'slick', plugins_url( '/slick/slick.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
 	    	
 	    wp_enqueue_style( 'mz-project-archive', plugins_url( '/dist/css/slickswipe.css', __FILE__ ));
 	    wp_enqueue_script( 'mz-project-archive', plugins_url( '/dist/js/slickswipe.js', __FILE__ ), null, PROJECTS_VERSION, true );
 	    
+	    wp_enqueue_script( 'pswp', plugins_url( '/pswp/photoswipe.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
+	    wp_enqueue_script( 'pswp-ui', plugins_url( '/pswp/photoswipe-ui-default.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
+	    
 	}
 	
-	/* Removed following to theme
-	if (is_archive('project')) {
-	    wp_enqueue_style( 'mz-project-archive-swiper', plugins_url( '/dist/css/swiper.css', __FILE__ ));
-	    wp_enqueue_script( 'mz-project-archive-swiper', plugins_url( '/dist/js/swiper.js', __FILE__ ), null, PROJECTS_VERSION, true );
+	if ( is_archive('project') || is_page('portfolio')) {
+		wp_enqueue_style( 'pswp-css', plugins_url( '/pswp/photoswipe.css', __FILE__ ) );
+	    wp_enqueue_style( 'pswp-skin', plugins_url( '/pswp/default-skin/default-skin.css', __FILE__ )  );
+	    
+	    wp_enqueue_style( 'mz-project-archive-flickity-skin', plugins_url( '/dist/css/flickity.css', __FILE__ ));
+	    wp_enqueue_style( 'projects-flickity', plugins_url( '/flickity/dist/flickity.min.css', __FILE__ ));
+	    wp_enqueue_script( 'projects-flickity', plugins_url( '/flickity/dist/flickity.pkgd.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
+	    wp_enqueue_script( 'mz-project-archive-init', plugins_url( '/dist/js/project-init.js', __FILE__ ), ['jquery'], PROJECTS_VERSION, true );
+	    wp_enqueue_script( 'pswp', plugins_url( '/pswp/photoswipe.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
+	    wp_enqueue_script( 'pswp-ui', plugins_url( '/pswp/photoswipe-ui-default.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
+	    
+	    // Send _GET variable to script so we start on correct slide if present.
+	    $page = isset($_GET['portfolio_item']) ? $_GET['portfolio_item'] : 0;
+		$data = array(
+			'page' => $page
+		);
+		wp_localize_script( 'mz-project-archive-init', 'mz_project_archive', $data );
 	}
-	*/
 
 	if ( apply_filters( 'projects_enqueue_styles', true ) ) {
 
@@ -564,3 +571,58 @@ if (!function_exists('mzoo_get_the_term_children')) {
 	}
 } // if function not exists
 
+if (!function_exists('mzoo_portfolio_intro')) {
+	function mzoo_portfolio_intro($post_type = 'project') {
+		
+		$args = array(
+			'numberposts'	=> 8,
+			'post_type'		=> 'project',
+			'meta_query'	=> array(
+				'relation'		=> 'OR',
+				array(
+					'key'		=> 'portfolio_status',
+					'value'		=> 'Portfolio Item',
+					'compare'	=> 'LIKE'
+				)
+			)
+		);
+
+		
+		$the_query = new WP_Query( $args );
+		
+		// Count posts to send post index to the Portfolio page
+		$count = 0;
+		
+		$result = '<div class="container">';
+		
+		$result .= '	<div class="row portfolio__intro">';
+
+		if( $the_query->have_posts() ): 
+			while ( $the_query->have_posts() ) : $the_query->the_post(); 
+				if(has_post_thumbnail()) {
+					$thumbnail = get_the_post_thumbnail_url(get_the_ID(), 'project-archive');
+					$background = 'background: url(' . $thumbnail . '); ';
+				 } else {
+				 	$background = 'background-color: #999999';
+				 }
+
+				$result .= '	<a class="portfolio__hp-thumb col-6 col-md-3" href="' . home_url('portfolio') . add_query_arg('portfolio_item', $count, get_post_type_archive_link( "portfolio" )) .'" style="' . $background . ' ">';
+				$result .= '		<div class="portfolio__hp-content">'; 
+				$result .= '			<h4 class="portfolio__thumb-title">' . get_the_title() . '</h4>';
+				$result .= '			<h5><strong>' . get_the_terms(get_the_ID(), 'project-category')[0]->name . '</strong></h5>';
+				$result .= '		</div>';
+				$result .= '	</a>';
+				$count++;
+			endwhile; 
+		endif; 
+		
+		$result .= '	</div>';
+		
+		$result .= '</div>';
+
+		wp_reset_query();	 // Restore global post data stomped by the_post(). 
+		
+		return $result;
+	}
+} // if function not exists
+add_shortcode('portfolio_intro', 'mzoo_portfolio_intro');

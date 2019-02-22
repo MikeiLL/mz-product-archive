@@ -30,7 +30,6 @@ $attachment_ids 	= projects_get_gallery_attachment_ids();
 									$image       	= wp_get_attachment_image( $attachment_id, 'shop_thumbnail' );
 									$hq       		= wp_get_attachment_image_src( $attachment_id, apply_filters( 'wooswipe_zoomed_image_size', $zoomed_image_size ) );
 									$med       		= wp_get_attachment_image_src( $attachment_id, 'shop_single' );
-
 									echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', sprintf( '
 										<li>
 											<div class="thumb" data-hq="%s" data-w="%s" data-h="%s" data-med="%s" data-medw="%s" data-medh="%s">%s</div>
