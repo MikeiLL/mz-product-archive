@@ -17,9 +17,9 @@ global $post, $project;
 
 	<a href="<?php the_permalink(); ?>" class="project-permalink">
 
-		<?php echo projects_get_project_thumbnail( 'project-thumbnail' ); ?>
-
 		<span class="project-title"><?php the_title(); ?></span>
+
+		<?php echo projects_get_project_thumbnail( 'project-thumbnail' ); ?>
 
 	</a>
 
