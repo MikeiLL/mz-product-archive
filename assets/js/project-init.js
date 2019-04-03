@@ -37,7 +37,8 @@
         return {          
           "src": el.getAttribute('data-src'),
           "w":   el.getAttribute('data-width'),
-          "h":   el.getAttribute('data-height')
+          "h":   el.getAttribute('data-height'),
+          "title": el.getAttribute('data-caption')
         }
       });
       
@@ -45,7 +46,6 @@
       	history: false,
         index: index
       };
-      console.log($(e.target).parent());
 
       var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
       gallery.init();
