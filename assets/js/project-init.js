@@ -76,7 +76,8 @@
         return {
           "src": el.getAttribute('data-src'),
           "w":   el.getAttribute('data-width'),
-          "h":   el.getAttribute('data-height')
+          "h":   el.getAttribute('data-height'),
+          "title": el.getAttribute('data-caption')
         }
       });
 
