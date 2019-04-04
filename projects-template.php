@@ -437,7 +437,7 @@ if ( ! function_exists( 'projects_get_project_thumbnail_with_caption' ) ) {
 	 * @param int $placeholder_height (default: 0)
 	 * @return string
 	 */
-	function projects_get_project_thumbnail_with_caption( $size = 'project-archive' ) {
+	function projects_get_project_thumbnail_with_caption( $size = 'project-archive', $button = false ) {
 		global $post;
 		
 		$metadata = wp_get_attachment_metadata( get_post_thumbnail_id( $post->ID ), true );
@@ -447,13 +447,14 @@ if ( ! function_exists( 'projects_get_project_thumbnail_with_caption' ) ) {
 		$caption = wp_get_attachment_caption($thumbnail_id);
 		$title =  get_the_title();
 		$display_caption = !empty($caption) ? $caption : $title;
+		$display_caption = ($button == false) ? $display_caption : $display_caption . ' – <a class="btn btn-secondary btn-sm" href="'. get_post_permalink($post->ID) . '">Full Project Details</a>';
 		
 			return get_the_post_thumbnail($post->ID, "project-archive", array(
 			  'data-src' => get_the_post_thumbnail_url($post->ID, "full"),
 			  'data-width' => $width,
 			  'data-height' => $height,
 			  'alt' => $title,
-			  'data-caption' => $display_caption . ' – <a class="btn btn-secondary btn-sm" href="'. get_post_permalink($post->ID) . '">Full Project Details</a>'
+			  'data-caption' => $display_caption
 			));
 	}
 }
