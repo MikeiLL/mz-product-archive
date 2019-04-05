@@ -67,16 +67,20 @@ $wrapper_classes   = apply_filters( 'woocommerce_single_product_image_gallery_cl
 			<?php
 			$zoomed_image_size = array(1920, 1080);
 			if ( has_post_thumbnail() ) {
-				$image_title = esc_attr( get_the_title( get_post_thumbnail_id() ) );
-				$image_link  = wp_get_attachment_url( get_post_thumbnail_id() );
-
+				$thumbnail_id = get_post_thumbnail_id();
+				$image_title = esc_attr( get_the_title( $thumbnail_id ) );
+				$image_link  = wp_get_attachment_url( $thumbnail_id );
+				
+				$caption = wp_get_attachment_caption($thumbnail_id);
+				$caption = (!empty($caption)) ? $caption : "";
 				$hq = wp_get_attachment_image_src( get_post_thumbnail_id(), apply_filters( 'wooswipe_zoomed_image_size', $zoomed_image_size ) );
 				$image = get_the_post_thumbnail( $post->ID, apply_filters( 'single_product_large_thumbnail_size', 'shop_single' ),
 					array(
-						'title' => '',
+						'title' => get_the_title($thumbnail_id),
 						'data-hq' => $hq[0],
 						'data-w' => $hq[1],
 						'data-h' => $hq[2],
+						'data-caption' => $caption
 						)
 				);
 

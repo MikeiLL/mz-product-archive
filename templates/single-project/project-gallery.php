@@ -27,14 +27,14 @@ $attachment_ids 	= projects_get_gallery_attachment_ids();
 							<?php
 								function addImageThumbnail($attachment_id, $zoomed_image_size){
 									global $post;
-									$image       	= wp_get_attachment_image( $attachment_id, 'shop_thumbnail' );
+									$image       	= wp_get_attachment_image( $attachment_id, 'shop_thumbnail', false, array('date-caption' => "This is a well caption")  );
 									$hq       		= wp_get_attachment_image_src( $attachment_id, apply_filters( 'wooswipe_zoomed_image_size', $zoomed_image_size ) );
 									$med       		= wp_get_attachment_image_src( $attachment_id, 'shop_single' );
 									echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', sprintf( '
 										<li>
-											<div class="thumb" data-hq="%s" data-w="%s" data-h="%s" data-med="%s" data-medw="%s" data-medh="%s">%s</div>
+											<div class="thumb" data-hq="%s" data-w="%s" data-h="%s" data-med="%s" data-medw="%s" data-medh="%s" date-caption="%s">%s</div>
 										</li>',
-										$hq[0], $hq[1], $hq[2], $med[0], $med[1], $med[2], $image ), $attachment_id, $post->ID );
+										$hq[0], $hq[1], $hq[2], $med[0], $med[1], $med[2], "this is an iLL caption", $image ), $attachment_id, $post->ID );
 								}
 
 								/// add main image
