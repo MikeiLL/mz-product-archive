@@ -605,7 +605,9 @@ if (!function_exists('mzoo_portfolio_intro')) {
 				 } else {
 				 	$background = 'background-color: #999999';
 				 }
-
+				mz_pr(get_the_ID());
+				mz_pr(get_the_terms(get_the_ID(), 'project-category'));
+				//mz_pr(get_the_terms(get_the_ID(), 'project-category'));
 				$result .= '	<a class="portfolio__hp-thumb col-6 col-md-3" href="' . home_url('portfolio') . add_query_arg('portfolio_item', $count, get_post_type_archive_link( "portfolio" )) .'" style="' . $background . ' ">';
 				$result .= '		<div class="portfolio__hp-content">'; 
 				$result .= '			<h4 class="portfolio__thumb-title">' . get_the_title() . '</h4>';
