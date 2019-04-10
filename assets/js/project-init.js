@@ -85,7 +85,6 @@
       	history: false,
         index: index
       };
-      console.log($(e.target).parents('.is-selected'));
 
       var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
       gallery.init();
