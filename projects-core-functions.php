@@ -570,17 +570,7 @@ if (!function_exists('mzoo_get_the_term_children')) {
 		return $term_children_links;
 	}
 } // if function not exists
-if ( ! function_exists( 'mz_pr' ) ) {
-	/**
-	 * Write message out to file
-	 * @param  String/Array  $message		What we want to examine in browser
-	 */
-	function mz_pr($message) {
-		echo "<pre>";
-		print_r($message);
-		echo "</pre>";
-	}
-}
+
 if (!function_exists('mzoo_portfolio_intro')) {
 	function mzoo_portfolio_intro($post_type = 'project') {
 		
@@ -615,13 +605,12 @@ if (!function_exists('mzoo_portfolio_intro')) {
 				 } else {
 				 	$background = 'background-color: #999999';
 				 }
-				mz_pr(get_the_ID());
-				mz_pr(get_the_terms(get_the_ID(), 'project-category'));
-				//mz_pr(get_the_terms(get_the_ID(), 'project-category'));
+				$project_category = get_the_terms(get_the_ID(), 'project-category');
+				$project_category_name = (is_object($project_category) && (!empty($project_category[0]->name))) ? $project_category[0]->name : '';
 				$result .= '	<a class="portfolio__hp-thumb col-6 col-md-3" href="' . home_url('portfolio') . add_query_arg('portfolio_item', $count, get_post_type_archive_link( "portfolio" )) .'" style="' . $background . ' ">';
 				$result .= '		<div class="portfolio__hp-content">'; 
 				$result .= '			<h4 class="portfolio__thumb-title">' . get_the_title() . '</h4>';
-				$result .= '			<h5><strong>' . get_the_terms(get_the_ID(), 'project-category')[0]->name . '</strong></h5>';
+				$result .= '			<h5><strong>' . $project_category_name . '</strong></h5>';
 				$result .= '		</div>';
 				$result .= '	</a>';
 				$count++;
