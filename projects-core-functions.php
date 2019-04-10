@@ -570,7 +570,17 @@ if (!function_exists('mzoo_get_the_term_children')) {
 		return $term_children_links;
 	}
 } // if function not exists
-
+if ( ! function_exists( 'mz_pr' ) ) {
+	/**
+	 * Write message out to file
+	 * @param  String/Array  $message		What we want to examine in browser
+	 */
+	function mz_pr($message) {
+		echo "<pre>";
+		print_r($message);
+		echo "</pre>";
+	}
+}
 if (!function_exists('mzoo_portfolio_intro')) {
 	function mzoo_portfolio_intro($post_type = 'project') {
 		
