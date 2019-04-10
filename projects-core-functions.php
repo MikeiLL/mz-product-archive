@@ -427,13 +427,13 @@ function projects_script() {
 	    wp_enqueue_style( 'slick-css', plugins_url( '/slick/slick.css', __FILE__ ));
 	    wp_enqueue_style( 'slick-theme', plugins_url( '/slick/slick-theme.css', __FILE__ ));
 
-		wp_enqueue_script( 'slick', plugins_url( '/slick/slick.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
-	    	
-	    wp_enqueue_style( 'mz-project-archive', plugins_url( '/dist/css/slickswipe.css', __FILE__ ));
-	    wp_enqueue_script( 'mz-project-archive', plugins_url( '/dist/js/slickswipe.js', __FILE__ ), ['jquery', 'projects-flickity'], PROJECTS_VERSION, true );
+		wp_enqueue_script( 'slick', plugins_url( '/slick/slick.min.js', __FILE__ ), ['jquery'], PROJECTS_VERSION, true );
 	    
 	    wp_enqueue_script( 'pswp', plugins_url( '/pswp/photoswipe.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
-	    wp_enqueue_script( 'pswp-ui', plugins_url( '/pswp/photoswipe-ui-default.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
+	    wp_enqueue_script( 'pswp-ui', plugins_url( '/pswp/photoswipe-ui-default.min.js', __FILE__ ), ['jquery'], PROJECTS_VERSION, true );
+	    	
+	    wp_enqueue_style( 'mz-project-archive', plugins_url( '/dist/css/slickswipe.css', __FILE__ ));
+	    wp_enqueue_script( 'mz-project-archive', plugins_url( '/dist/js/slickswipe.js', __FILE__ ), ['jquery'], PROJECTS_VERSION, true );
 	    
 	}
 	
@@ -444,9 +444,9 @@ function projects_script() {
 	    wp_enqueue_style( 'mz-project-archive-flickity-skin', plugins_url( '/dist/css/flickity.css', __FILE__ ));
 	    wp_enqueue_style( 'projects-flickity', plugins_url( '/flickity/dist/flickity.min.css', __FILE__ ));
 	    wp_enqueue_script( 'projects-flickity', plugins_url( '/flickity/dist/flickity.pkgd.min.js', __FILE__ ), ['jquery'], PROJECTS_VERSION, true );
-	    wp_enqueue_script( 'mz-project-archive-init', plugins_url( '/dist/js/project-init.js', __FILE__ ), ['jquery'], PROJECTS_VERSION, true );
-	    wp_enqueue_script( 'pswp', plugins_url( '/pswp/photoswipe.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
-	    wp_enqueue_script( 'pswp-ui', plugins_url( '/pswp/photoswipe-ui-default.min.js', __FILE__ ), null, PROJECTS_VERSION, true );
+	    wp_enqueue_script( 'mz-project-archive-init', plugins_url( '/dist/js/project-init.js', __FILE__ ), ['jquery', 'projects-flickity'], PROJECTS_VERSION, true );
+	    wp_enqueue_script( 'pswp', plugins_url( '/pswp/photoswipe.min.js', __FILE__ ), ['jquery'], PROJECTS_VERSION, true );
+	    wp_enqueue_script( 'pswp-ui', plugins_url( '/pswp/photoswipe-ui-default.min.js', __FILE__ ), ['jquery'], PROJECTS_VERSION, true );
 	    
 	    // Send _GET variable to script so we start on correct slide if present.
 	    $page = isset($_GET['portfolio_item']) ? $_GET['portfolio_item'] : 0;
