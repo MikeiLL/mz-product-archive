@@ -174,6 +174,7 @@ final class Projects {
 			'capability_type' 		=> 'post',
 			'has_archive'			=> 	( $projects_page_id = projects_get_page_id( 'projects' ) ) && get_page( $projects_page_id ) ? get_page_uri( $projects_page_id ) : 'projects',
 			'hierarchical' 			=> false,
+            'show_in_rest' 			=> true,
 			'supports' 				=> array(
 										'title',
 										'editor',

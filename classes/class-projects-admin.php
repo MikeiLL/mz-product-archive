@@ -235,10 +235,28 @@ class Projects_Admin {
 		global $projects;
 
 		// Add short description meta box (replaces default excerpt)
-		add_meta_box( 'postexcerpt', sprintf( __( '%s Short Description', 'projects-by-mzoo' ), $projects->singular_name ), array( $this, 'meta_box_short_description' ), $this->post_type, 'normal' );
+		add_meta_box( 'postexcerpt', 
+					sprintf( __( '%s Short Description', 'projects-by-mzoo' ), 
+					$projects->singular_name ), 
+					array( $this, 'meta_box_short_description' ), 
+					$this->post_type, 
+					'normal',
+					'default',
+					array(
+						'__block_editor_compatible_meta_box' => false,
+					) );
 		
 		// Project Images Meta Bog Load
-		add_meta_box( 'project-images', sprintf( __( '%s Gallery', 'projects-by-mzoo' ), $projects->singular_name ), array( $this, 'meta_box_content_project_images' ), $this->post_type, 'side' );
+		add_meta_box( 'project-images', 
+					sprintf( __( '%s Gallery', 'projects-by-mzoo' ), 
+					$projects->singular_name ), 
+					array( $this, 'meta_box_content_project_images' ), 
+					$this->post_type, 
+					'side',
+					'default',
+					 array(
+						'__block_editor_compatible_meta_box' => true,
+					 ) );
 
 	} // End meta_box_setup()
 
