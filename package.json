@@ -38,6 +38,7 @@
     "jshint": "^2.9.3"
   },
   "dependencies": {
-    "swiper": "^4.4.1"
+    "swiper": "^4.4.1",
+    "upgrade": "^1.1.0"
   }
 }
