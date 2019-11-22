@@ -633,3 +633,9 @@ if (!function_exists('mzoo_portfolio_intro')) {
 	}
 } // if function not exists
 add_shortcode('portfolio_intro', 'mzoo_portfolio_intro');
+
+if (!function_exists('mzoo_project_archive_default_image')) {
+	function mzoo_project_archive_default_image(){
+		return plugins_url( 'mz-project-archive/assets/images/placeholder.png', dirname(__FILE__) );
+	}
+}

@@ -243,7 +243,7 @@ class Projects_Admin {
 					'normal',
 					'default',
 					array(
-						'__block_editor_compatible_meta_box' => false,
+						'__block_editor_compatible_meta_box' => true,
 					) );
 		
 		// Project Images Meta Bog Load
