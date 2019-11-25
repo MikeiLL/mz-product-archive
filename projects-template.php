@@ -441,6 +441,11 @@ if ( ! function_exists( 'projects_get_project_thumbnail_with_caption' ) ) {
 		global $post;
 		
 		$metadata = wp_get_attachment_metadata( get_post_thumbnail_id( $post->ID ), true );
+		/*
+		This is a hack for now so that script doesn't die when there isn't a featured image for the project.
+		TODO: Assign metadata to default image for projects.
+		*/
+		if (empty($metadata)) return;
 		$height = $metadata['height'];
 		$width = $metadata['width'];
 		$thumbnail_id = get_post_thumbnail_id($post->ID);
