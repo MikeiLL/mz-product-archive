@@ -445,7 +445,9 @@ if ( ! function_exists( 'projects_get_project_thumbnail_with_caption' ) ) {
 		This is a hack for now so that script doesn't die when there isn't a featured image for the project.
 		TODO: Assign metadata to default image for projects.
 		*/
-		if (empty($metadata)) return;
+		if (empty($metadata['height'])):
+			return '<image src="' . plugins_url( 'mz-project-archive/assets/images/placeholder.png', dirname(__FILE__) ) . '" data-src="' . plugins_url( 'mz-project-archive/assets/images/placeholder.png', dirname(__FILE__) ) . '" data-width="450" data-height="450" alt="placeholder image" data-caption="placeholder image">';
+		endif;
 		$height = $metadata['height'];
 		$width = $metadata['width'];
 		$thumbnail_id = get_post_thumbnail_id($post->ID);
