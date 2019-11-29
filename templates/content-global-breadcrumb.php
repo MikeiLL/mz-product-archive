@@ -10,6 +10,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 if (!is_post_type_archive()):
 //source: https://gist.github.com/saqibsarwar/471cb91a6b17ffc457e2
 	global $post;
+	/* TODO: If there are no posts in this category, the $post variable will be null. 
+	* But we still want to display the breadcrumbs in the category archive. */
+	if (empty($post)):
+		// For now we will just ignore breadcrumbs as we don't want empty categories anyway.
+		return;
+	endif;
 	$home_page_id = get_option( 'projects-pages-fields' )['projects_page_id'];
 	$inspiry_breadcrumbs_items = inspiry_get_breadcrumbs_items( $post->ID, 'project-category', $home_page_id);
 	if ( is_array( $inspiry_breadcrumbs_items ) && ( 0 < count( $inspiry_breadcrumbs_items ) ) && (!in_array(get_queried_object_id(), array($home_page_id, 0) ) ) ) {
