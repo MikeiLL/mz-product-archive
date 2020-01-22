@@ -157,6 +157,10 @@ class Projects_Settings {
 											'crop'		=> 'yes'
 										)
 			) );
+			
+			$default_image = apply_filters( 'projects_default_image', array(
+				'project-default-image' 	=> ''
+			) );
 
 			// Parse incomming $options into an array and merge it with $defaults
 			$options = wp_parse_args( $options, $defaults );
@@ -191,8 +195,23 @@ class Projects_Settings {
 				</td>
 			</tr>
 		</table>
+		
+		<p><?php //_e ( 'Select an image that will be the default project featured image.' , 'projects-by-mzoo' ); ?> </p>
+		<!--<table class="form-table">	
+			<tr valign="top">
+				<th scope="row">
+					<?php //_e( 'Default Image', 'projects-by-mzoo' ); ?>
+				</th>
+				<td>
+					<?php $default_image = isset( $options['project-thumbnail']['default_image'] ) ? $options['project-thumbnail']['default_image'] : ''; ?>
+					<?php //_e( 'Default Image:', 'projects-by-mzoo' ); ?> <input type="text" size="3" name="projects-images-fields[project-thumbnail][width]" value="<?php echo $options['project-thumbnail']['width']; ?>" /> <?php _e( 'Height:', 'projects-by-mzoo' ); ?> <input type="text" size="3" name="projects-images-fields[project-thumbnail][height]" value="<?php echo $options['project-thumbnail']['height']; ?>" /> <?php _e( 'Crop:', 'projects-by-mzoo' ); ?> <input type="checkbox" name="projects-images-fields[project-thumbnail][crop]" value="1" <?php checked( $crop, 'yes' );?> />
+				</td>
+			</tr>
+		</table> -->
 		<?php
 	} // End projects_images_settings()
+	
+	
 
 	/**
 	 * projects_pages_settings_validate validates pages settings form data
