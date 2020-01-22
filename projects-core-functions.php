@@ -635,6 +635,7 @@ if (!function_exists('mzoo_portfolio_intro')) {
 add_shortcode('portfolio_intro', 'mzoo_portfolio_intro');
 
 if (!function_exists('mzoo_categories_intro')) {
+	// TODO: this relies on list category walker in Renaissance Roots theme!
 	function mzoo_categories_intro($post_type = 'project') {
 		
 		$args = array('taxonomy' => 'project-category',
