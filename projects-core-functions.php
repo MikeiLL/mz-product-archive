@@ -634,6 +634,30 @@ if (!function_exists('mzoo_portfolio_intro')) {
 } // if function not exists
 add_shortcode('portfolio_intro', 'mzoo_portfolio_intro');
 
+if (!function_exists('mzoo_categories_intro')) {
+	function mzoo_categories_intro($post_type = 'project') {
+		
+		$args = array('taxonomy' => 'project-category',
+			  'title_li' => '',
+			  'depth' => 1,
+			  'walker' => new List_Category_Walker,
+			  'style' => '',
+			  'echo' => 0
+			);
+			  ?>
+
+		<?php $categories = wp_list_categories($args);
+
+		if ( $categories ) {
+			return '<div class="category-grid card-columns">'.$categories.'</div>';
+		} else {
+			return "<h3>No Categories to display.</h3>";
+		}
+
+	}
+} // if function not exists
+add_shortcode('categories_intro', 'mzoo_categories_intro');
+
 if (!function_exists('mzoo_project_archive_default_image')) {
 	function mzoo_project_archive_default_image(){
 		return plugins_url( 'mz-project-archive/assets/images/placeholder.png', dirname(__FILE__) );
