@@ -118,6 +118,10 @@ class Projects_Settings {
 	            'sort_order'			=> 'ASC',
 	            'show_option_none' 		=> ' ',
 				);
+			$defaults = apply_filters( 'projects_default_projects_per_page', array(
+				'projects-per-page' => 10
+			) );
+			$options = wp_parse_args( $options, $defaults );
 		?>
 		<table class="form-table">
 			<tr valign="top">
@@ -126,6 +130,16 @@ class Projects_Settings {
 					<?php wp_dropdown_pages( $args ); ?>
 					<p class="description">
 						<?php _e( 'The base page of your projects. This is your projects archive.', 'projects-by-mzoo' ); ?>
+					</p>
+				</td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><?php _e( 'Projects Per Page', 'projects-by-mzoo' ); ?></th>
+				<td>
+					<?php $projects_per_page = isset( $options['projects-per-page'] ) ? $options['projects-per-page'] : '10'; ?>
+					<input type="text" size="4" name="projects-pages-fields[projects-per-page]" value="<?php echo $options['projects-per-page']; ?>" /> 
+					<p class="description">
+						<?php _e( 'The number of projects to display on a single page.', 'projects-by-mzoo' ); ?>
 					</p>
 				</td>
 			</tr>
@@ -155,7 +169,7 @@ class Projects_Settings {
 											'width' 	=> 100,
 											'height'	=> 100,
 											'crop'		=> 'yes'
-										)
+										)					
 			) );
 			
 			$default_image = apply_filters( 'projects_default_image', array(
@@ -195,6 +209,7 @@ class Projects_Settings {
 				</td>
 			</tr>
 		</table>
+		
 		
 		<p><?php //_e ( 'Select an image that will be the default project featured image.' , 'projects-by-mzoo' ); ?> </p>
 		<!--<table class="form-table">	

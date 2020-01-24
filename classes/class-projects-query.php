@@ -329,7 +329,8 @@ class Projects_Query {
 		// Query vars that affect posts shown
 		$q->set( 'meta_query', $meta_query );
 		$q->set( 'post__in', $post__in );
-		$q->set( 'posts_per_page', $q->get( 'posts_per_page' ) ? $q->get( 'posts_per_page' ) : apply_filters( 'loop_projects_per_page', get_option( 'posts_per_page' ) ) );
+		$options = get_option( 'projects-pages-fields' );
+		$q->set( 'posts_per_page', $q->get( 'posts_per_page' ) ? $q->get( 'posts_per_page' ) : $options['projects-per-page'] );
 
 		// Set a special variable
 		$q->set( 'projects_query', 'project_query' );
