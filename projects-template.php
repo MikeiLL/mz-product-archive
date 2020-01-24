@@ -210,7 +210,6 @@ if ( ! function_exists( 'projects_taxonomy_archive_description' ) ) {
 			if ( $description ) {
 				echo '<div class="term-description">' . $description . '</div>';
 			}
-			projects_get_template_part( 'content', 'global-breadcrumb-children');
 		}
 	}
 }
