@@ -47,6 +47,7 @@ if ( ! is_admin() || defined('DOING_AJAX') ) {
 	add_action( 'projects_archive_description', 'projects_taxonomy_archive_description', 10 );
 	add_action( 'projects_archive_description', 'projects_project_archive_description', 10 );
 	add_action( 'projects_project_categories', 'projects_taxonomy_category_list', 10 );
+	add_action( 'projects_project_category_filter', 'projects_project_category_filters', 10 );
 
 	/**
 	 * Project Loop Items

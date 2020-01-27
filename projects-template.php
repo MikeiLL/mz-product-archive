@@ -261,6 +261,22 @@ if ( ! function_exists( 'projects_project_archive_description' ) ) {
 	}
 }
 
+if ( ! function_exists( 'projects_project_category_filters' ) ) {
+
+	/**
+	 * Show a projects page description on project archives
+	 *
+	 * Hooked into projects_project_category_filter
+	 *
+	 * @access public
+	 * @subpackage	Archives
+	 * @return void
+	 */
+	function projects_project_category_filters() {
+		projects_get_template_part( 'content', 'category-filter');
+	}
+}
+
 if ( ! function_exists( 'projects_portfolio_loop_start' ) ) {
 
 	/**

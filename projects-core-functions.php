@@ -563,10 +563,10 @@ if( !function_exists( 'inspiry_get_term_depth' ) ) :
 endif;
 
 if (!function_exists('mzoo_get_the_term_children')) {
-	function mzoo_get_the_term_children($taxonomy = 'project-category') {
+	function mzoo_get_the_term_children($term, $taxonomy = 'project-category') {
 		$term_query = new WP_Term_Query( array( 'taxonomy' => $taxonomy, 
 												'orderby' => 'name', 
-												'child_of' => get_queried_object()->term_id,
+												'child_of' => $term,
 												'hide_empty' => true ) );
 		if ($term_query->terms == '') return false;
 		$term_children_links = array();
@@ -635,8 +635,10 @@ if (!function_exists('mzoo_portfolio_intro')) {
 add_shortcode('portfolio_intro', 'mzoo_portfolio_intro');
 
 if (!function_exists('mzoo_categories_intro')) {
-	// TODO: this relies on list category walker in Renaissance Roots theme!
+
 	function mzoo_categories_intro($post_type = 'project') {
+		
+		require_once( 'classes/class-list-category-walker.php' );
 		
 		$args = array('taxonomy' => 'project-category',
 			  'title_li' => '',
