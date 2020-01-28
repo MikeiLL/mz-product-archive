@@ -4,7 +4,7 @@
  * Plugin URI: http://www.mzoo.org
  * Description: Project Archive plugin  based on projects-by-woothemes 1.5.0
  * Author: mZoo.org
- * Version: 1.0
+ * Version: 1.5
  * Author URI: http://www.mzoo.org
  * Text Domain: mz-project-archive 
  *
