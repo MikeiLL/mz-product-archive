@@ -178,7 +178,6 @@ final class Projects {
 			'supports' 				=> array(
 										'title',
 										'editor',
-										'thumbnail',
 										'excerpt'
 										),
 			'menu_position' 		=> 5,

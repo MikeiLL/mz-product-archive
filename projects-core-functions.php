@@ -616,3 +616,10 @@ if (!function_exists('mzoo_project_archive_default_image')) {
 		return plugins_url( 'mz-project-archive/assets/images/placeholder.png', dirname(__FILE__) );
 	}
 }
+
+add_action( 'wp', 'mzoo_projects_remove_featured_images', 15 );
+function mzoo_projects_remove_featured_images() {
+    if ( is_singular( 'project' ) ){
+        remove_action( 'generate_after_header','generate_page_header', 10 );
+    }
+}

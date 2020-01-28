@@ -111,57 +111,7 @@ class Projects {
 		$this->plural_name 		= apply_filters( 'projects_post_type_plural_name', _x( 'Projects', 'post type general name', 'projects-by-mzoo' ) );
 	}
 
-	/**
-	 * Register the post type.
-	 *
-	 * @access public
-	 * @return void
-	 */
-	public function register_post_type () {
-		$labels = array(
-			'name' 					=> $this->plural_name,
-			'singular_name' 		=> $this->singular_name,
-			'add_new' 				=> _x( 'Add New', $this->post_type, 'projects-by-mzoo' ),
-			'add_new_item' 			=> sprintf( __( 'Add New %s', 'projects-by-mzoo' ), $this->singular_name ),
-			'edit_item' 			=> sprintf( __( 'Edit %s', 'projects-by-mzoo' ), $this->singular_name ),
-			'new_item' 				=> sprintf( __( 'New %s', 'projects-by-mzoo' ), $this->singular_name ),
-			'all_items' 			=> sprintf( _x( 'All %s', $this->post_type, 'projects-by-mzoo' ), $this->plural_name ),
-			'view_item' 			=> sprintf( __( 'View %s', 'projects-by-mzoo' ), $this->singular_name ),
-			'search_items' 			=> sprintf( __( 'Search %a', 'projects-by-mzoo' ), $this->plural_name ),
-			'not_found' 			=> sprintf( __( 'No %s Found', 'projects-by-mzoo' ), $this->plural_name ),
-			'not_found_in_trash' 	=> sprintf( __( 'No %s Found In Trash', 'projects-by-mzoo' ), $this->plural_name ),
-			'parent_item_colon' 	=> '',
-			'menu_name' 			=> $this->plural_name
-
-		);
-		$args = array(
-			'labels' 				=> $labels,
-			'public' 				=> true,
-			'publicly_queryable' 	=> true,
-			'show_ui' 				=> true,
-			'show_in_menu' 			=> true,
-			'query_var' 			=> true,
-			'rewrite' 				=> array(
-										'slug' 			=> trailingslashit ( strtolower( $this->singular_name ) ) . '%product_category%',
-										'with_front' 	=> false
-										),
-			'capability_type' 		=> 'post',
-			'has_archive'			=> 	( $projects_page_id = projects_get_page_id( 'projects' ) ) && get_page( $projects_page_id ) ? get_page_uri( $projects_page_id ) : 'projects',
-			'hierarchical' 			=> false,
-			'supports' 				=> array(
-										'title',
-										'editor',
-										'thumbnail',
-										'excerpt'
-										),
-			'menu_position' 		=> 5,
-			'menu_icon' 			=> 'dashicons-portfolio'
-		);
-
-		$args = apply_filters( 'projects_register_post_type', $args );
-
-		register_post_type( $this->post_type, (array) $args );
-	} // End register_post_type()
+	
 
 	/**
 	 * Register the "product_cat" taxonomy.
