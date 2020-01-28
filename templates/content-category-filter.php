@@ -19,7 +19,7 @@ if (is_a($obj, 'WP_Term')):
 	
 	$count = count($project_terms);
 	
-	printf( '<div class="">There are %s subcategories.</div>', $count );
+	printf( '%s subcategories: ', $count );
 
 	foreach ($project_terms as $name => $link): ?>
 		<a href="<?php echo $link ?>"><?php echo $name ?></a>
