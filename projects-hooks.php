@@ -28,7 +28,7 @@ if ( ! is_admin() || defined('DOING_AJAX') ) {
 	 * @see projects_output_content_wrapper_end()
 	 */
 	add_action( 'projects_before_main_content', 'projects_output_content_wrapper', 10 );
-	add_action( 'projects_before_main_content', 'projects_template_get_breadcrumbs', 20 );
+	/* projects_template_get_breadcrumbs removed in v 1.5 */
 	add_action( 'projects_after_main_content', 'projects_output_content_wrapper_end', 10 );
 
 	/**
@@ -48,6 +48,7 @@ if ( ! is_admin() || defined('DOING_AJAX') ) {
 	add_action( 'projects_archive_description', 'projects_project_archive_description', 10 );
 	add_action( 'projects_project_categories', 'projects_taxonomy_category_list', 10 );
 	add_action( 'projects_project_category_filter', 'projects_project_category_filters', 10 );
+	add_action( 'projects_project_count', 'mzoo_get_project_count', 10 );
 
 	/**
 	 * Project Loop Items
