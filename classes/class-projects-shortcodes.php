@@ -116,80 +116,16 @@ class Projects_Shortcodes {
 	}
 	
 	public function mzoo_portfolio_intro($post_type = 'project') {
-		
-			$args = array(
-				'numberposts'	=> 8,
-				'post_type'		=> 'project',
-				'meta_query'	=> array(
-					'relation'		=> 'OR',
-					array(
-						'key'		=> 'portfolio_status',
-						'value'		=> 'Portfolio Item',
-						'compare'	=> 'LIKE'
-					)
-				)
-			);
-
-		
-			$the_query = new WP_Query( $args );
-		
-			// Count posts to send post index to the Portfolio page
-			$count = 0;
-		
-			$result = '<div class="container">';
-		
-			$result .= '	<div class="row portfolio__intro">';
-
-			if( $the_query->have_posts() ): 
-				while ( $the_query->have_posts() ) : $the_query->the_post(); 
-					if(has_post_thumbnail()) {
-						$thumbnail = get_the_post_thumbnail_url(get_the_ID(), 'project-archive');
-						$background = 'background: url(' . $thumbnail . '); ';
-					 } else {
-						$background = 'background-color: #999999';
-					 }
-					$project_category = get_the_terms(get_the_ID(), 'project-category');
-					$project_category_name = (is_object($project_category[0]) && (!empty($project_category[0]->name))) ? $project_category[0]->name : '';
-					$result .= '	<a class="portfolio__hp-thumb col-6 col-md-3" href="' . home_url('portfolio') . add_query_arg('portfolio_item', $count, get_post_type_archive_link( "portfolio" )) .'" style="' . $background . ' ">';
-					$result .= '		<div class="portfolio__hp-content">'; 
-					$result .= '			<h4 class="portfolio__thumb-title">' . get_the_title() . '</h4>';
-					$result .= '			<h5><strong>' . $project_category_name . '</strong></h5>';
-					$result .= '		</div>';
-					$result .= '	</a>';
-					$count++;
-				endwhile; 
-			endif; 
-		
-			$result .= '	</div>';
-		
-			$result .= '</div>';
-
-			wp_reset_query();	 // Restore global post data stomped by the_post(). 
-		
-			return $result;
+			ob_start();
+			projects_get_template_part( 'content', 'portfolio-intro');
+			return ob_get_clean();
 		}
 
 
 		public function mzoo_categories_intro($post_type = 'project') {
-		
-			require_once( 'classes/class-list-category-walker.php' );
-		
-			$args = array('taxonomy' => 'project-category',
-				  'title_li' => '',
-				  'depth' => 1,
-				  'walker' => new List_Category_Walker,
-				  'style' => '',
-				  'echo' => 0
-				);
-				  ?>
-
-			<?php $categories = wp_list_categories($args);
-
-			if ( $categories ) {
-				return '<div class="category-grid card-columns">'.$categories.'</div>';
-			} else {
-				return "<h3>No Categories to display.</h3>";
-			}
+			ob_start();
+			projects_get_template_part( 'content', 'global-project-categories');
+			return ob_get_clean();
 
 		}
 
