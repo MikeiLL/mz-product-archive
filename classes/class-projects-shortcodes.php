@@ -122,9 +122,24 @@ class Projects_Shortcodes {
 		}
 
 
-		public function mzoo_categories_intro($post_type = 'project') {
+		public function mzoo_categories_intro($atts, $post_type = 'project') {
+
+        	$this->atts = shortcode_atts(array(
+         	   'type' => 'standard'
+        	), $atts);
+        	
+        	$type = $atts['type'];
+        	
 			ob_start();
-			projects_get_template_part( 'content', 'global-project-categories');
+			
+			if ($type === 'standard'):
+				projects_get_template_part( 'content', 'global-project-categories');
+			else:
+				projects_get_template_part( 'content', 'alternate-project-categories');
+				
+        	
+			endif;
+			
 			return ob_get_clean();
 
 		}
