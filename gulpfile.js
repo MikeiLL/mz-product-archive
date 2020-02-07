@@ -35,7 +35,7 @@ gulp.task('scripts', function() {
 // ### Images
 // `gulp images` - Run lossless compression on all the images.
 gulp.task('images', function() {
-  return gulp.src('assets/images')
+  return gulp.src('assets/images/*')
     .pipe(imagemin([
       imagemin.jpegtran({progressive: true}),
       imagemin.gifsicle({interlaced: true}),
