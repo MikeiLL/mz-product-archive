@@ -529,7 +529,7 @@ if (!function_exists('mzoo_get_project_count')) {
 
 if (!function_exists('mzoo_project_archive_default_image')) {
 	function mzoo_project_archive_default_image(){
-		return plugins_url( 'mz-project-archive/assets/images/placeholder.png', dirname(__FILE__) );
+		return plugins_url( 'mz-project-archive/dist/images/placeholder.png', dirname(__FILE__) );
 	}
 }
 
