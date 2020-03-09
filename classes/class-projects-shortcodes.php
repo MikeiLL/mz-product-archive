@@ -119,10 +119,10 @@ class Projects_Shortcodes {
 			ob_start();
 			projects_get_template_part( 'content', 'portfolio-intro');
 			return ob_get_clean();
-		}
+}
 
 
-		public function mzoo_categories_intro($atts, $post_type = 'project') {
+	public function mzoo_categories_intro($atts, $post_type = 'project') {
 
         	$this->atts = shortcode_atts(array(
          	   'type' => 'standard'
