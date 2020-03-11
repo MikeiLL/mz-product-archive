@@ -445,14 +445,15 @@ if ( ! function_exists( 'projects_get_project_thumbnail_with_caption' ) ) {
 	/**
 	 * Get the project thumbnail, or the placeholder if not set.
 	 *
+	 *
 	 * @access public
 	 * @subpackage	Loop
 	 * @param string $size (default: 'project-archive')
-	 * @param int $placeholder_width (default: 0)
-	 * @param int $placeholder_height (default: 0)
+	 * @param string $link (default: 'photoswipe') - Set as "project" to short circuit photoswipe and link directly to project
+	 * @param bool $button (default: false)
 	 * @return string
 	 */
-	function projects_get_project_thumbnail_with_caption( $size = 'project-archive', $button = false ) {
+	function projects_get_project_thumbnail_with_caption( $size = 'project-archive', $button = false, $link = 'photoswipe' ) {
 		global $post;
 		
 		$metadata = wp_get_attachment_metadata( get_post_thumbnail_id( $post->ID ), true );
@@ -461,8 +462,13 @@ if ( ! function_exists( 'projects_get_project_thumbnail_with_caption' ) ) {
 		TODO: Assign metadata to default image for projects.
 		*/
 		if (empty($metadata['height'])):
-			return '<image src="' . mzoo_project_archive_default_image() . '" data-src="' . plugins_url( 'mz-project-archive/dist/images/placeholder.png', dirname(__FILE__) ) . '" data-width="450" data-height="450" alt="placeholder image" data-caption="placeholder image">';
+			if ($link == 'project') {
+				return '<a href="' . get_the_permalink($post->ID) . '" title="placeholder image">' . '<image src="' . mzoo_project_archive_default_image() . '" alt="placeholder image">' . '</a>';
+			} else {
+				return '<image src="' . mzoo_project_archive_default_image() . '" data-src="' . plugins_url( 'mz-project-archive/dist/images/placeholder.png', dirname(__FILE__) ) . '" data-width="450" data-height="450" alt="placeholder image" data-caption="placeholder image">';
+			}
 		endif;
+		
 		$height = $metadata['height'];
 		$width = $metadata['width'];
 		$thumbnail_id = get_post_thumbnail_id($post->ID);
@@ -470,6 +476,10 @@ if ( ! function_exists( 'projects_get_project_thumbnail_with_caption' ) ) {
 		$title =  get_the_title();
 		$display_caption = !empty($caption) ? $caption : $title;
 		$display_caption = ($button == false) ? $display_caption : $display_caption . ' – <a class="btn btn-secondary btn-sm" href="'. get_post_permalink($post->ID) . '">Full Project Details</a>';
+				
+		if ($link == 'project') {
+		 return '<a href="' . get_the_permalink($post->ID) . '" title="' . $display_caption . '" alt="' . $title . '">' . get_the_post_thumbnail($post->ID, "project-archive", ['style' => 'cursor:pointer;']) . '</a>';
+		} else {
 		
 			return get_the_post_thumbnail($post->ID, "project-archive", array(
 			  'data-src' => get_the_post_thumbnail_url($post->ID, "full"),
@@ -478,6 +488,7 @@ if ( ! function_exists( 'projects_get_project_thumbnail_with_caption' ) ) {
 			  'alt' => $title,
 			  'data-caption' => $display_caption
 			));
+		}
 	}
 }
 
