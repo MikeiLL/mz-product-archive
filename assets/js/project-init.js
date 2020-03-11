@@ -72,7 +72,7 @@
 
       // build items array
 
-      var items = $.map($(".portfolio-gallery").find("img"), function(el) {
+      var items = $.map($(".portfolio-photoswipe-gallery").find("img"), function(el) {
         return {
           "src": el.getAttribute('data-src'),
           "w":   el.getAttribute('data-width'),
