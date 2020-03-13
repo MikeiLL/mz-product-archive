@@ -463,9 +463,9 @@ if ( ! function_exists( 'projects_get_project_thumbnail_with_caption' ) ) {
 		*/
 		if (empty($metadata['height'])):
 			if ($link == 'project') {
-				return '<a href="' . get_the_permalink($post->ID) . '" title="placeholder image">' . '<image src="' . mzoo_project_archive_default_image() . '" alt="placeholder image">' . '</a>';
+				return '<a href="' . get_the_permalink($post->ID) . '" title="placeholder image">' . '<image src="' . mzoo_project_archive_default_image() . '" alt="placeholder image" width="400px" height="400px">' . '</a>';
 			} else {
-				return '<image src="' . mzoo_project_archive_default_image() . '" data-src="' . plugins_url( 'mz-project-archive/dist/images/placeholder.png', dirname(__FILE__) ) . '" data-width="450" data-height="450" alt="placeholder image" data-caption="placeholder image">';
+				return '<image src="' . mzoo_project_archive_default_image() . '" data-src="' . mzoo_project_archive_default_image() . '" width="400px" height="400px" data-width="450" data-height="450" alt="placeholder image" data-caption="placeholder image">';
 			}
 		endif;
 		
